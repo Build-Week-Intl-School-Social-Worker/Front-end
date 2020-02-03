@@ -1,6 +1,34 @@
 export const initialState = {
-    title: "Coming from Redux Store!!! 🐲",
-    editing: false
+    studentList: [
+        { 
+        name: 'jessie',
+        age: 15
+        },
+        {name: 'shawn',
+        age: 16
+        },
+        {name: 'jimmy',
+        age: 10
+        },
+        {name: 'abraham',
+        age: 12
+        },
+        {name: 'jorge',
+        age: 11
+        },
+        {name: 'steve',
+        age: 16
+        },
+        {name: 'lily',
+        age: 14
+        },
+        {name: 'sarah',
+        age: 11
+        },
+        {name: 'becky',
+        age: 13
+        },
+    ]
   };
   
   export const reducer = (state = initialState, action) => {

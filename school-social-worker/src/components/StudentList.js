@@ -9,6 +9,7 @@ const StudentList = props => {
     return (
         <>
         <h2>Student List  Component</h2>
+    
         <button onClick={() => props.fetchStudents(apiCall)}> get the data </button>
         </>
     )
@@ -18,7 +19,7 @@ const StudentList = props => {
 const mapStateToProps = state => {
     return {
         title: state.title,
-        editing: state.editing
+        studentList: state.studentList
     }
 }
 
