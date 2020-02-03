@@ -28,10 +28,14 @@ const RegisterForm = ({values, errors, touched, status}) => {
             </labelk>
 
             <label htmlFor="status">
-                <Field
-                    name='status' type='radio'
-                />
+                <Field as="select" name="select">
+                    <option value='null'>Select</option>
+                    <option value='admin'>Administrator</option>
+                    <option value='worker'>Social Worker</option>
+                </Field>
             </label>
+
+            <button type="submit">Register</button>
 
        </Form>
     );
