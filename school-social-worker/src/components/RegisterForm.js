@@ -16,22 +16,30 @@ const RegisterForm = ({values, errors, touched, status}) => {
        <Form>
 
             <label htmlFor='name'> 
+                Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
             </label>
 
             <label htmlFor='email'>
+                Email: 
                 <Field name='email' type='email' placeHolder='Enter Email' />
             </label>
 
             <labelk htmlFor='password'>
+                Password: 
                 <Field name='passowrd' type='password' placeHolder="Enter Password" />
             </labelk>
 
             <label htmlFor="status">
-                <Field
-                    name='status' type='radio'
-                />
+                Role: 
+                <Field as="select" name="select">
+                    <option value='null'>Select</option>
+                    <option value='admin'>Administrator</option>
+                    <option value='worker'>Social Worker</option>
+                </Field>
             </label>
+
+            <button type="submit">Register</button>
 
        </Form>
     );
