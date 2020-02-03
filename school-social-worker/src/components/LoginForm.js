@@ -56,7 +56,7 @@ const LoginSubmit = withFormik ({
             setCredentials(response.data);
             
         })
-        .catch ( err => console.log('Error:', err));
+        .catch ( err => console.log('Error on LoginForm: ', err));
     }
 
 })(LoginForm)
