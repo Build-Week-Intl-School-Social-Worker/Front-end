@@ -34,7 +34,7 @@ display: flex;
 width: 100%;
 justify-content: flex-end;
 align-items: center;
-font-size: 2.2rem;
+font-size: 1.8rem;
 
 @media (max-width: 600px) {
     justify-content: space-around;
