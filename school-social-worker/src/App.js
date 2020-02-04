@@ -9,11 +9,14 @@ import StudentList from './components/StudentList';
 import CreateStudentProfile from './components/CreateStudentProfileForm';
 import SingleChildView from './components/SingleChildView';
 import SingleChildEditForm from './components/SingleChildEditForm';
+import Navigation from './components/Navigation';
 
 
 function App() {
   return (
     <div className="App">
+        <Route path='/' component={Navigation}/>
+      <header className="App-header">
       <div>
         <ul>
           <li><Link to='/register'>Register</Link></li>
@@ -24,12 +27,6 @@ function App() {
           <li><Link to='/single-child-edit'>Single Child Edit</Link></li>
         </ul>
       </div>
-      <header className="App-header">
-        <h1>
-          School Social Worker
-        </h1>
-        <img src={logo} className="App-logo" alt="logo" />
-        <Route path='/' />
         <Route exact path='/' component={StudentList} />
         <Route path='/login' component={LoginForm} />
         <Route path='/register' component={RegisterForm} />
