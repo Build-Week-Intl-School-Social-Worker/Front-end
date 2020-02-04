@@ -54,8 +54,9 @@ const LoginSubmit = withFormik ({
         axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
         .then ( response => {
             console.log('Success', response);
-            setCredentials(response.data);
-            resetForm();
+            // setCredentials(response.data);
+            // resetForm();
+            localStorage.setItem('token', response.data.token)
             
         })
         .catch ( err => console.log('Error on LoginForm: ', err));
