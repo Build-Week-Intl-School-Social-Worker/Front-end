@@ -23,6 +23,30 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 )}
             </label>
 
+            <label htmlFor='role_id'> 
+                role_id: 
+                <Field name='role_id' type='text' placeHolder='role_id' />
+                {/* {touched.name && errors.name && (
+                    <p className="errors">{errors.name}</p>
+                )} */}
+            </label>
+
+            <label htmlFor='phone'> 
+                phone: 
+                <Field name='phone' type='text' placeHolder='phone' />
+                {/* {touched.name && errors.name && (
+                    <p className="errors">{errors.name}</p>
+                )} */}
+            </label>
+
+            <label htmlFor='org_name'> 
+                org_name: 
+                <Field name='org_name' type='text' placeHolder='org_name' />
+                {/* {touched.name && errors.name && (
+                    <p className="errors">{errors.name}</p>
+                )} */}
+            </label>
+
             <label htmlFor='email'>
                 Email: 
                 <Field name='email' type='email' placeHolder='Enter Email' />
@@ -39,7 +63,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 )}
             </labelk>
 
-            <label htmlFor="status">
+            {/* <label htmlFor="status">
                 Role: 
                 <Field as="select" name="select">
                     <option value='null'>Select</option>
@@ -49,7 +73,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 {touched.select && errors.status && (
                     <p className="errors">{errors.status}</p>
                 )}
-            </label>
+            </label> */}
 
             <button type="submit">Register</button>
 
@@ -63,19 +87,21 @@ const RegisterSubmit = withFormik ({
             name: props.name || "",
             email: props.email || "",
             password: props.password || "",
-            status: props.status || ""
+            role_id: props.role_id || "",
+            phone: props.phone || "",
+            org_name: props.org_name || ""
         };
     },
 
     validationSchema: Yup.object().shape({
-        name: Yup.string().required("Name is required!"),
-        email: Yup.string().required("Email is required!"),
-        password: Yup.string().required("Password is required!"),
-        status: Yup.string().required("Role is required!")
+        // name: Yup.string().required("Name is required!"),
+        // email: Yup.string().required("Email is required!"),
+        // password: Yup.string().required("Password is required!"),
+        // status: Yup.string().required("Role is required!")
     }),
 
     handleSubmit( values, { setNewUser, resetForm }) {
-        axios.post('https://regres.in/api/users', values)
+        axios.post('https://school-social-worker.herokuapp.com/auth/register', values)
         .then ( response => {
             console.log('Success', response);
             setNewUser(response.data);
