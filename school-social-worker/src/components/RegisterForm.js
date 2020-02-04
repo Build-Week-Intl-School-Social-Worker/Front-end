@@ -72,13 +72,13 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
                 )}
             </label>
 
-            <labelk htmlFor='password'>
+            <label htmlFor='password'>
                 Password: 
                 <Field name='password' type='password' placeHolder="Enter Password" />
                 {touched.password && errors.password && (
                     <p className="errors">{errors.password}</p>
                 )}
-            </labelk>
+            </label>
 
             {/* <label htmlFor="status">
                 Role: 
