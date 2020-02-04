@@ -16,22 +16,42 @@ const RegisterForm = ({values, errors, touched, status}) => {
        <Form>
 
             <label htmlFor='name'> 
+                Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
+                {touched.name && errors.name && (
+                    <p className="errors">{errors.name}</p>
+                )}
             </label>
 
             <label htmlFor='email'>
+                Email: 
                 <Field name='email' type='email' placeHolder='Enter Email' />
+                {touched.email && errors.email && (
+                    <p className="errors">{errors.email}</p>
+                )}
             </label>
 
             <labelk htmlFor='password'>
-                <Field name='passowrd' type='password' placeHolder="Enter Password" />
+                Password: 
+                <Field name='password' type='password' placeHolder="Enter Password" />
+                {touched.password && errors.password && (
+                    <p className="errors">{errors.password}</p>
+                )}
             </labelk>
 
             <label htmlFor="status">
-                <Field
-                    name='status' type='radio'
-                />
+                Role: 
+                <Field as="select" name="select">
+                    <option value='null'>Select</option>
+                    <option value='admin'>Administrator</option>
+                    <option value='worker'>Social Worker</option>
+                </Field>
+                {touched.select && errors.status && (
+                    <p className="errors">{errors.status}</p>
+                )}
             </label>
+
+            <button type="submit">Register</button>
 
        </Form>
     );
@@ -47,11 +67,20 @@ const RegisterSubmit = withFormik ({
         };
     },
 
-    handleSubmit( values, { setNewUser }) {
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("Name is required!"),
+        email: Yup.string().required("Email is required!"),
+        password: Yup.string().required("Password is required!"),
+        status: Yup.string().required("Role is required!")
+    }),
+
+    handleSubmit( values, { setNewUser, resetForm }) {
         axios.post('https://regres.in/api/users', values)
         .then ( response => {
             console.log('Success', response);
             setNewUser(response.data);
+            resetForm();
+
         })
         .catch ( err => console.log('Error on RegistrationForm: ', err));
     }

@@ -19,13 +19,13 @@ export const LoginForm = ({values, errors, touched, status}) => {
                 <label htmlFor='username'>
                     Username: 
                     <Field name='username' type='text' placeHolder="Enter Username"/>
-                    {/* {touched.userName && errors.userName && (<p className="errors">{errors.userName}</p>)} */}
+                    {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
                 </label>
 
                 <label htmlFor="password">
                     Password: 
                     <Field name='password' type='password' placeHolder="Enter Password"/>
-                    {/* {touched.password && errors.password && (<p className="errors">{errors.password}</p>)} */}
+                    {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
                 </label>
 
                 <button type="submit">Login</button>
@@ -44,16 +44,17 @@ const LoginSubmit = withFormik ({
         };
     },
 
-    // validationSchema: Yup.object().shape({
-    //     userName: Yup.string().required("Username is required!"),
-    //     userPassword: Yup.string().required("Password is required!")
-    // }),
+    validationSchema: Yup.object().shape({
+        username: Yup.string().required("Username is required!"),
+        password: Yup.string().required("Password is required!")
+    }),
 
-    handleSubmit( values, { setCredentials}) {
+    handleSubmit( values, { setCredentials, resetForm}) {
         axios.post('https://regres.in/api/users', values)
         .then ( response => {
             console.log('Success', response);
             setCredentials(response.data);
+            resetForm();
             
         })
         .catch ( err => console.log('Error on LoginForm: ', err));
