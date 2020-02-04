@@ -79,7 +79,7 @@ const RegisterSubmit = withFormik ({
         .then ( response => {
             console.log('Success', response);
             setNewUser(response.data);
-            RegisterForm();
+            resetForm();
 
         })
         .catch ( err => console.log('Error on RegistrationForm: ', err));
