@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const RegisterForm = ({values, errors, touched, status}) => {
     
@@ -100,12 +101,13 @@ const RegisterSubmit = withFormik ({
         // status: Yup.string().required("Role is required!")
     }),
 
-    handleSubmit( values, { setNewUser, resetForm }) {
+    handleSubmit( values, {props, setNewUser, resetForm }) {
         axios.post('https://school-social-worker.herokuapp.com/auth/register', values)
         .then ( response => {
             console.log('Success', response);
-            setNewUser(response.data);
-            resetForm();
+            // setNewUser(response.data);
+            // resetForm();
+            props.history.push("/login")
 
         })
         .catch ( err => console.log('Error on RegistrationForm: ', err));
