@@ -3,8 +3,18 @@ import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createUser } from '../actions/index';
+import { ScaleLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
-const RegisterForm = ({values, errors, touched, status}) => {
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
+const RegisterForm = ({ values, errors, touched, status, ...props}) => {
     
     const  [ newUser, setNewUser ] = useState({
         name: '',
@@ -15,7 +25,13 @@ const RegisterForm = ({values, errors, touched, status}) => {
 
     return (
        <Form>
-
+           <ScaleLoader
+          css={override}
+          size={150}
+          //size={"150px"} this also works
+          color={"#123abc"}
+          loading={props.isLoading}
+        />
             <label htmlFor='name'> 
                 Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
@@ -102,17 +118,30 @@ const RegisterSubmit = withFormik ({
     }),
 
     handleSubmit( values, {props, setNewUser, resetForm }) {
-        axios.post('https://school-social-worker.herokuapp.com/auth/register', values)
-        .then ( response => {
-            console.log('Success', response);
-            // setNewUser(response.data);
-            // resetForm();
-            props.history.push("/login")
 
-        })
-        .catch ( err => console.log('Error on RegistrationForm: ', err));
+        props.createUser('https://school-social-worker.herokuapp.com/auth/register', values, props )
+        // axios.post('https://school-social-worker.herokuapp.com/auth/register', values)
+        // .then ( response => {
+        //     console.log('Success', response);
+        //     // setNewUser(response.data);
+        //     // resetForm();
+        //     props.history.push("/login")
+
+        // })
+        // .catch ( err => console.log('Error on RegistrationForm: ', err));
     }
 
 })(RegisterForm)
 
-export default RegisterSubmit;
+// export default RegisterSubmit;
+
+const mapStateToProps = state => {
+    return {
+        studentList: state.studentList,
+        isLoading: state.isLoading
+    }
+}
+export default connect(
+    mapStateToProps,
+    {createUser}
+)(RegisterSubmit);
