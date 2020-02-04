@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
+import { RedAlert } from './ErrorStyles';
+
 
 const RegisterForm = ({values, errors, touched, status}) => {
     
@@ -19,7 +21,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
                 {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
+                    <RedAlert className="errors">{errors.name}</RedAlert>
                 )}
             </label>
 
@@ -27,7 +29,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 Email: 
                 <Field name='email' type='email' placeHolder='Enter Email' />
                 {touched.email && errors.email && (
-                    <p className="errors">{errors.email}</p>
+                    <RedAlert className="errors">{errors.email}</RedAlert>
                 )}
             </label>
 
@@ -35,7 +37,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                 Password: 
                 <Field name='password' type='password' placeHolder="Enter Password" />
                 {touched.password && errors.password && (
-                    <p className="errors">{errors.password}</p>
+                    <RedAlert className="errors">{errors.password}</RedAlert>
                 )}
             </labelk>
 
@@ -47,7 +49,7 @@ const RegisterForm = ({values, errors, touched, status}) => {
                     <option value='worker'>Social Worker</option>
                 </Field>
                 {touched.select && errors.status && (
-                    <p className="errors">{errors.status}</p>
+                    <RedAlert className="errors">{errors.status}</RedAlert>
                 )}
             </label>
 
