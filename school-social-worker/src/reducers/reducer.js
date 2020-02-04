@@ -29,7 +29,8 @@ export const initialState = {
         age: 13
         },
     ],
-    isLoading: false
+    isLoading: false,
+    isLoggedIn: false
   };
   
   export const reducer = (state = initialState, action) => {
@@ -44,6 +45,12 @@ export const initialState = {
         return {
           ...state,
           isLoading: false
+        };
+      case "LOGIN_SUCCESS":
+        return {
+          ...state,
+          isLoading: false,
+          isLoggedIn: true
         };
       // NEW CASE HERE
       case "TOGGLE_EDITING":

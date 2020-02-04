@@ -4,6 +4,9 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { RedAlert } from './ErrorStyles';
 import { useHistory } from 'react-router-dom';
+import {connect } from 'react-redux';
+import { logInAction } from '../actions';
+import { Link } from 'react-router-dom';
 
 export const LoginForm = ({props, values, errors, touched, status}) => {
     const [ credentials, setCredentials ] = useState({
@@ -15,7 +18,7 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
 
 
     return (   
-        
+        <>
             <Form>
                 <label htmlFor='email'>
                     Username: 
@@ -32,8 +35,8 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
                 <button type="submit">Login</button>
 
             </Form>
-        
-        
+        <Link to="/register">Register</Link>
+        </>
     );
 }
 
@@ -51,17 +54,28 @@ const LoginSubmit = withFormik ({
     }),
 
     handleSubmit( values, { props, setCredentials, resetForm}) {
-        axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
-        .then ( response => {
-            console.log('Success', response);
+        props.logInAction('https://school-social-worker.herokuapp.com/auth/login', values, props);
+        // axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
+        // .then ( response => {
+            // console.log('Success', response, props);
             // setCredentials(response.data);
             // resetForm();
-            localStorage.setItem('token', response.data.token)
-            props.history.push('/')
-        })
-        .catch ( err => console.log('Error on LoginForm: ', err));
+            // localStorage.setItem('token', response.data.token)
+            // props.history.push('/')
+        // })
+        // .catch ( err => console.log('Error on LoginForm: ', err));
     }
 
 })(LoginForm)
 
-export default LoginSubmit;
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.isLoading,
+        isLoggedIn: state.isLoggedIn
+    }
+}
+export default connect(
+    mapStateToProps,
+    {logInAction}
+)(LoginSubmit);

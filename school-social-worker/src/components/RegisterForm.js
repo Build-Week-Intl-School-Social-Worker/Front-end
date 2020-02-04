@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { createUser } from '../actions/index';
 import { ScaleLoader } from "react-spinners";
 import { css } from "@emotion/core";
+import { Link } from 'react-router-dom';
+
 
 const override = css`
   display: block;
@@ -24,6 +26,7 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
     })
 
     return (
+        <>
        <Form>
            <ScaleLoader
           css={override}
@@ -95,6 +98,8 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
             <button type="submit">Register</button>
 
        </Form>
+       <Link to="/login">Login</Link>
+       </>
     );
 }
 
