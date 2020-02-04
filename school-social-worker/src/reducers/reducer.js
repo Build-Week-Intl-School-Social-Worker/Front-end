@@ -28,17 +28,22 @@ export const initialState = {
         {name: 'becky',
         age: 13
         },
-    ]
+    ],
+    isLoading: false
   };
   
   export const reducer = (state = initialState, action) => {
     // console.log(state, action)
     switch (action.type) {
-      case "UPDATE_TITLE":
+      case "DATA_START_LOADING":
         return {
           ...state,
-          title: action.payload,
-          editing: false
+          isLoading: true
+        };
+      case "FETCHING_DATA_SUCCESS":
+        return {
+          ...state,
+          isLoading: false
         };
       // NEW CASE HERE
       case "TOGGLE_EDITING":

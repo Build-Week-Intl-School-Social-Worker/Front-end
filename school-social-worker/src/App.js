@@ -18,7 +18,7 @@ function App() {
     <div className="App">
         <Route path='/' component={Navigation}/>
       <header className="App-header">
-      <div>
+      {localStorage.getItem('token') && <div>
         <ul>
           <li><Link to='/register'>Register</Link></li>
           <li><Link to='/login'>Login</Link></li>
@@ -27,7 +27,9 @@ function App() {
           <li><Link to='/single-child-view'>Single Child View</Link></li>
           <li><Link to='/single-child-edit'>Single Child Edit</Link></li>
         </ul>
-      </div>
+      </div>}
+      
+
         <PrivateRoute exact path='/' component={StudentList} />
         <Route path='/login' component={LoginForm} />
         <Route path='/register' component={RegisterForm} />

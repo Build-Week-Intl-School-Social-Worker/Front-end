@@ -34,6 +34,5 @@ const mapStateToProps = state => {
 }
 
 export default connect(
-    mapStateToProps,
-    {fetchStudents}
+    mapStateToProps
 )(StudentList);
