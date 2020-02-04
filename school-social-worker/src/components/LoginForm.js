@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 export const LoginForm = ({props, values, errors, touched, status}) => {
     const [ credentials, setCredentials ] = useState({
-        name: '',
+        email: '',
         password: ''
     })
     
@@ -17,10 +17,10 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
     return (   
         
             <Form>
-                <label htmlFor='name'>
+                <label htmlFor='email'>
                     Username: 
-                    <Field name='name' type='text' placeholder="Enter name"/>
-                    {touched.name && errors.name && (<RedAlert className="errors">{errors.name}</RedAlert>)}
+                    <Field name='email' type='text' placeholder="Enter name"/>
+                    {touched.email && errors.email && (<RedAlert className="errors">{errors.email}</RedAlert>)}
                 </label>
 
                 <label htmlFor="password">
@@ -46,7 +46,7 @@ const LoginSubmit = withFormik ({
     },
 
     validationSchema: Yup.object().shape({
-        name: Yup.string().required("name is required!"),
+        email: Yup.string().required("name is required!"),
         password: Yup.string().required("Password is required!")
     }),
 
