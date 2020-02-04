@@ -19,13 +19,13 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
             <Form>
                 <label htmlFor='name'>
                     Username: 
-                    <Field name='name' type='text' placeHolder="Enter name"/>
+                    <Field name='name' type='text' placeholder="Enter name"/>
                     {touched.name && errors.name && (<RedAlert className="errors">{errors.name}</RedAlert>)}
                 </label>
 
                 <label htmlFor="password">
                     Password: 
-                    <Field name='password' type='password' placeHolder="Enter Password"/>
+                    <Field name='password' type='password' placeholder="Enter Password"/>
                     {touched.password && errors.password && (<RedAlert className="errors">{errors.password}</RedAlert>)}
                 </label>
 
