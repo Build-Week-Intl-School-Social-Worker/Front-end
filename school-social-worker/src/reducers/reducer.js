@@ -58,6 +58,11 @@ export const initialState = {
           ...state,
           editing: !state.editing
         };
+      case "SIGN_OUT":
+        return {
+          ...state,
+          editing: !state.editing
+        };
       default:
         return state;
     }

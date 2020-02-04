@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import LogoImg from '../assets/ghana-make-a-difference.png';
-import { Link} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signOut } from '../actions';
 
 
-const Navigation = () => {
+const Navigation = (props) => {
 
 const NavigationStyles = styled.div`
 display: flex;
@@ -41,12 +43,19 @@ font-size: 1.8rem;
     justify-content: space-around;
     font-size: 1.4rem;
   }
+
 `;
 const Links = styled.div`
 padding: 10px;
 margin: 10px;
 color: #000;
 font-family: 'Manjari', sans-serif;
+
+:hover {
+    color: orange;
+    background: grey;
+    cursor: pointer;
+}
 `;
 
 
@@ -59,7 +68,7 @@ font-family: 'Manjari', sans-serif;
             </LogoContainer>
             <NavLinks>
                 <Links>Account</Links>
-                <Links>Sign out</Links>
+                <Links onClick={() => props.signOut(props)}>Sign out</Links>
             </NavLinks>
         </NavigationStyles>
             
@@ -74,4 +83,15 @@ font-family: 'Manjari', sans-serif;
     )
 }
 
-export default Navigation;
+
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.isLoading,
+        isLoggedIn: state.isLoggedIn
+    }
+}
+export default connect(
+    mapStateToProps,
+    {signOut}
+)(Navigation);

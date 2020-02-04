@@ -42,3 +42,11 @@ export const logInAction = (apiCall, userInputs, props) => {
         })
     }
 }
+
+export const signOut = (props) => {
+    return dispatch => {
+        localStorage.removeItem('token');
+        dispatch({ type: 'SIGN_OUT'});
+        props.history.push('/login')
+    }
+}
