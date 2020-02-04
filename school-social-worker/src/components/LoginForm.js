@@ -3,16 +3,16 @@ import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { RedAlert } from './ErrorStyles';
+import { useHistory } from 'react-router-dom';
 
-export const LoginForm = ({values, errors, touched, status}) => {
+export const LoginForm = ({props, values, errors, touched, status}) => {
     const [ credentials, setCredentials ] = useState({
         name: '',
         password: ''
     })
+    
+    let history = useHistory();
 
-    // useEffect(() => {
-        
-    // })
 
     return (   
         
@@ -50,14 +50,14 @@ const LoginSubmit = withFormik ({
         password: Yup.string().required("Password is required!")
     }),
 
-    handleSubmit( values, { setCredentials, resetForm}) {
+    handleSubmit( values, { props, setCredentials, resetForm}) {
         axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
         .then ( response => {
             console.log('Success', response);
             // setCredentials(response.data);
             // resetForm();
             localStorage.setItem('token', response.data.token)
-            
+            props.history.push('/')
         })
         .catch ( err => console.log('Error on LoginForm: ', err));
     }
