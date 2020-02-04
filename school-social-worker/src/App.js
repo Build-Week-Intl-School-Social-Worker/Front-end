@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import { Route, Link } from 'react-router-dom';
 
 import './App.css';
@@ -10,6 +9,8 @@ import CreateStudentProfile from './components/CreateStudentProfileForm';
 import SingleChildView from './components/SingleChildView';
 import SingleChildEditForm from './components/SingleChildEditForm';
 import Navigation from './components/Navigation';
+
+import PrivateRoute from './utils/PrivateRoute';
 
 
 function App() {
@@ -27,12 +28,12 @@ function App() {
           <li><Link to='/single-child-edit'>Single Child Edit</Link></li>
         </ul>
       </div>
-        <Route exact path='/' component={StudentList} />
+        <PrivateRoute exact path='/' component={StudentList} />
         <Route path='/login' component={LoginForm} />
         <Route path='/register' component={RegisterForm} />
-        <Route path='/create-student-profile' component={CreateStudentProfile} />
-        <Route path='/single-child-view' component={SingleChildView} />
-        <Route path='/single-child-edit' component={SingleChildEditForm} />
+        <PrivateRoute path='/create-student-profile' component={CreateStudentProfile} />
+        <PrivateRoute path='/single-child-view' component={SingleChildView} />
+        <PrivateRoute path='/single-child-edit' component={SingleChildEditForm} />
       </header>
     </div>
   );
