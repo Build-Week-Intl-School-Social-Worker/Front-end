@@ -1,4 +1,6 @@
 import React from "react";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 export const StudentCard = props => {
     console.log(props.child);
@@ -14,7 +16,11 @@ export const StudentCard = props => {
             <p>Bio: {props.child.bio}</p>
             <p>Status: {props.child.status}</p>
             <p>Insurance Card: {props.child.insurance_card}</p>
-            <p>Card Expiration Date: {props.child.expire_date}</p>
+            <p>Card Expiration Date:  
+                <Moment format="YYYY-MM-DD"> 
+                {props.child.expire_date}
+                </Moment>
+            </p>
             <p>Birth Certificate: {props.child.birth_cert}</p>
             <p>Special Needs: {props.child.special_needs}</p>
             <div>
