@@ -1,38 +1,9 @@
 export const initialState = {
-    studentList: [
-        { 
-        name: 'jessie',
-        age: 15
-        },
-        {name: 'shawn',
-        age: 16
-        },
-        {name: 'jimmy',
-        age: 10
-        },
-        {name: 'abraham',
-        age: 12
-        },
-        {name: 'jorge',
-        age: 11
-        },
-        {name: 'steve',
-        age: 16
-        },
-        {name: 'lily',
-        age: 14
-        },
-        {name: 'sarah',
-        age: 11
-        },
-        {name: 'becky',
-        age: 13
-        },
-    ],
     isLoading: false,
     isLoggedIn: false,
     id: null,
     role_id: null,
+    email: '',
     name: '',
     org_name: ''
   };
@@ -59,7 +30,15 @@ export const initialState = {
         return {
           ...state,
           isLoading: false,
-          isLoggedIn: true
+          isLoggedIn: true,
+          email: action.payload.email
+        };
+      case "SET_EMAIL":
+        return {
+          ...state,
+          isLoading: false,
+          isLoggedIn: true,
+          email: action.payload
         };
         case "LOGIN_FAILED":
           return {

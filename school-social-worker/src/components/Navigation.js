@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import LogoImg from '../assets/ghana-make-a-difference.png';
 import { Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signOut } from '../actions';
+import { signOut, setEmailToState } from '../actions';
 
 
 const Navigation = (props) => {
@@ -58,7 +58,14 @@ font-family: 'Manjari', sans-serif;
 }
 `;
 
+useEffect(() => {
 
+    if(!props.email) {
+      props.setEmailToState();
+    }
+      
+  
+})
 
 
 
@@ -90,10 +97,11 @@ font-family: 'Manjari', sans-serif;
 const mapStateToProps = state => {
     return {
         isLoading: state.isLoading,
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        email: state.email
     }
 }
 export default connect(
     mapStateToProps,
-    {signOut}
+    {signOut, setEmailToState}
 )(Navigation);

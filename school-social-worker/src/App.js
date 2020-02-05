@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import './App.css';
@@ -16,6 +16,7 @@ import PrivateRoute from './utils/PrivateRoute';
 
 
 function App(props) {
+
 
 
 
@@ -42,7 +43,8 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
+    email: state.email
   }
 }
 export default connect(

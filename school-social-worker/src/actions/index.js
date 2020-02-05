@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 
@@ -34,8 +35,10 @@ export const logInAction = (apiCall, userInputs, props) => {
         .post(apiCall, userInputs)
         .then(res => {
             console.log(res)
-            dispatch({ type: "LOGIN_SUCCESS", payload: res.data.results})
+            console.log(userInputs.email)
+            dispatch({ type: "LOGIN_SUCCESS", payload: userInputs})
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('email', userInputs.email)
             props.history.push('/')
         })
         .catch( err => {
@@ -50,5 +53,27 @@ export const signOut = (props) => {
         localStorage.removeItem('token');
         dispatch({ type: 'SIGN_OUT'});
         props.history.push('/login')
+    }
+}
+
+export const loadUserData = (props) => {
+    return dispatch => {
+        console.log('load user data works')
+        // dispatch({ type: 'SIGN_OUT'});
+        axiosWithAuth()
+        .get('https://school-social-worker.herokuapp.com/api/users')
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+}
+
+export const setEmailToState = props => {
+    return dispatch => {
+        console.log('set email to state action')
+        dispatch({ type: "SET_EMAIL", payload: localStorage.getItem('email')})
     }
 }
