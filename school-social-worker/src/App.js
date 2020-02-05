@@ -8,6 +8,7 @@ import StudentList from './components/StudentList';
 import CreateStudentProfile from './components/CreateStudentProfileForm';
 import SingleChildView from './components/SingleChildView';
 import SingleChildEditForm from './components/SingleChildEditForm';
+import MyAccount from './components/MyAccount';
 import Navigation from './components/Navigation';
 import { connect } from 'react-redux';
 
@@ -27,6 +28,8 @@ function App(props) {
         <PrivateRoute exact path='/' component={StudentList} />
         <Route path='/login' component={LoginForm} />
         <Route path='/register' component={RegisterForm} />
+
+        <PrivateRoute path='/my-account' component={MyAccount} />
         <PrivateRoute path='/create-student-profile' component={CreateStudentProfile} />
         <PrivateRoute path='/single-child-view' component={SingleChildView} />
         <PrivateRoute path='/single-child-edit' component={SingleChildEditForm} />

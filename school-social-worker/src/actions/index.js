@@ -17,7 +17,7 @@ export const createUser = (apiCall, userInputs, props) => {
         .then(res => {
             console.log('it worked on actions')
             console.log(res);
-            dispatch({ type: "FETCHING_DATA_SUCCESS", payload: res.data.results})
+            dispatch({ type: "REGISTER_SUCCESS", payload: res.data})
             props.history.push('/login')
         })
         .catch( err => {
@@ -33,7 +33,7 @@ export const logInAction = (apiCall, userInputs, props) => {
         axios
         .post(apiCall, userInputs)
         .then(res => {
-            console.log('it worked on logInAction')
+            console.log(res)
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data.results})
             localStorage.setItem('token', res.data.token)
             props.history.push('/')

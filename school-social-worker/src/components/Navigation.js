@@ -69,7 +69,8 @@ font-family: 'Manjari', sans-serif;
                 <Logo src={LogoImg} />
             </LogoContainer>
             <NavLinks>
-                <Links>Account</Links>
+                <Links><Link to='/'>Home</Link></Links>
+                <Links><Link to='/my-account'>My Account</Link></Links>
                 <Links onClick={() => props.signOut(props)}>Sign out</Links>
             </NavLinks>
         </NavigationStyles>

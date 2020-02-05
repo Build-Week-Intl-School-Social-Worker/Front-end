@@ -28,13 +28,7 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
     return (
         <>
        <Form>
-           <ScaleLoader
-          css={override}
-          size={150}
-          //size={"150px"} this also works
-          color={"#123abc"}
-          loading={props.isLoading}
-        />
+           
             <label htmlFor='name'> 
                 Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
@@ -94,8 +88,17 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
                     <p className="errors">{errors.status}</p>
                 )}
             </label> */}
-
-            <button type="submit">Register</button>
+            {props.isLoading ?
+                <ScaleLoader
+                css={override}
+                size={150}
+                //size={"150px"} this also works
+                color={"#123abc"}
+                loading={props.isLoading}
+                />
+            :
+                <button type="submit">Register</button>
+            }
 
        </Form>
        <Link to="/login">Login</Link>

@@ -30,7 +30,11 @@ export const initialState = {
         },
     ],
     isLoading: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    id: null,
+    role_id: null,
+    name: '',
+    org_name: ''
   };
   
   export const reducer = (state = initialState, action) => {
@@ -41,10 +45,15 @@ export const initialState = {
           ...state,
           isLoading: true
         };
-      case "FETCHING_DATA_SUCCESS":
+      case "REGISTER_SUCCESS":
         return {
           ...state,
-          isLoading: false
+          isLoading: false,
+          id: action.payload.id,
+          name: action.payload.name,
+          org_name: action.payload.org_name,
+          role_id: action.payload.role_id
+
         };
       case "LOGIN_SUCCESS":
         return {

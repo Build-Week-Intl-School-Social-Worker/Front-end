@@ -80,7 +80,8 @@ const LoginSubmit = withFormik ({
 const mapStateToProps = state => {
     return {
         isLoading: state.isLoading,
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        role_id: state.role_id
     }
 }
 export default connect(
