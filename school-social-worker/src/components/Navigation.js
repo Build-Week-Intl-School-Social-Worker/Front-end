@@ -60,6 +60,8 @@ font-family: 'Manjari', sans-serif;
 
 
 
+
+
     return (
         <>
         <NavigationStyles>
@@ -72,8 +74,7 @@ font-family: 'Manjari', sans-serif;
             </NavLinks>
         </NavigationStyles>
             
-          <Link to='/register'>Register</Link>
-          <Link to='/login'>Login</Link>
+
           <Link to='/'>Student List</Link>
           <Link to='/create-student-profile'>Create Student Profile</Link>
           <Link to='/single-child-view'>Single Child View</Link>
