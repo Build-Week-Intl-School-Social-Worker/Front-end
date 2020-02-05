@@ -16,8 +16,8 @@ export const StudentCard = props => {
             <p>Bio: {props.child.bio}</p>
             <p>Status: {props.child.status}</p>
             <p>Insurance Card: {props.child.insurance_card}</p>
-            <p>Card Expiration Date: 
-                <Moment format="YYYY-MM-DD">
+            <p>Card Expiration Date:  
+                <Moment format="YYYY-MM-DD"> 
                 {props.child.expire_date}
                 </Moment>
             </p>
