@@ -1,35 +1,11 @@
 export const initialState = {
-    studentList: [
-        { 
-        name: 'jessie',
-        age: 15
-        },
-        {name: 'shawn',
-        age: 16
-        },
-        {name: 'jimmy',
-        age: 10
-        },
-        {name: 'abraham',
-        age: 12
-        },
-        {name: 'jorge',
-        age: 11
-        },
-        {name: 'steve',
-        age: 16
-        },
-        {name: 'lily',
-        age: 14
-        },
-        {name: 'sarah',
-        age: 11
-        },
-        {name: 'becky',
-        age: 13
-        },
-    ],
-    isLoading: false
+    isLoading: false,
+    isLoggedIn: false,
+    id: null,
+    role_id: null,
+    email: '',
+    name: '',
+    org_name: ''
   };
   
   export const reducer = (state = initialState, action) => {
@@ -40,13 +16,42 @@ export const initialState = {
           ...state,
           isLoading: true
         };
-      case "FETCHING_DATA_SUCCESS":
+      case "REGISTER_SUCCESS":
         return {
           ...state,
-          isLoading: false
+          isLoading: false,
+          id: action.payload.id,
+          name: action.payload.name,
+          org_name: action.payload.org_name,
+          role_id: action.payload.role_id
+
         };
+      case "LOGIN_SUCCESS":
+        return {
+          ...state,
+          isLoading: false,
+          isLoggedIn: true,
+          email: action.payload.email
+        };
+      case "SET_EMAIL":
+        return {
+          ...state,
+          isLoading: false,
+          isLoggedIn: true,
+          email: action.payload
+        };
+        case "LOGIN_FAILED":
+          return {
+            ...state,
+            isLoading: false
+          };
       // NEW CASE HERE
       case "TOGGLE_EDITING":
+        return {
+          ...state,
+          editing: !state.editing
+        };
+      case "SIGN_OUT":
         return {
           ...state,
           editing: !state.editing

@@ -3,8 +3,14 @@ import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
+import { ScaleLoader } from "react-spinners";
 
 const CreateStudentProfile = ({value, errors, touched, status}) => {
+    const [loading, setLoading] = useState(false);
+
+    const loadingHandler = () => {
+        setLoading(true)
+    }
 
     const [ student, newStudent ] = useState({
         name: '',
@@ -98,7 +104,14 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                 <Field name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
             </label>
 
-            <button type="submit">Create</button>
+            <button onClick={loadingHandler} type="submit">Create</button>
+            <ScaleLoader
+            
+            size={150}
+            //size={"150px"} this also works
+            color={"#123abc"}
+            loading={loading}
+            />
 
         </Form>
     )
@@ -123,13 +136,18 @@ const CreateStudentSubmit = withFormik({
         };
     },
 
-    handleSubmit(values, {props, resetForm}) {
+    handleSubmit(values,  { props, resetForm}) {
         axiosWithAuth()
         .post('https://school-social-worker.herokuapp.com/api/students', values)
         .then( response => {
+
             console.log('Created Student Success: ', response);
         })
-        .catch ( err => console.log('Failed to creat student: ', err));
+        .catch ( err => {
+
+            console.log('Failed to creat student: ', err)
+        });
+        
     }
 
 })(CreateStudentProfile)

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import LogoImg from '../assets/ghana-make-a-difference.png';
+import { Link, useHistory} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signOut, setEmailToState } from '../actions';
 
 
-const Navigation = () => {
+const Navigation = (props) => {
 
 const NavigationStyles = styled.div`
 display: flex;
@@ -40,27 +43,65 @@ font-size: 1.8rem;
     justify-content: space-around;
     font-size: 1.4rem;
   }
+
 `;
-const Link = styled.div`
+const Links = styled.div`
 padding: 10px;
 margin: 10px;
 color: #000;
 font-family: 'Manjari', sans-serif;
+
+:hover {
+    color: orange;
+    background: grey;
+    cursor: pointer;
+}
 `;
+
+useEffect(() => {
+
+    if(!props.email) {
+      props.setEmailToState();
+    }
+      
+  
+})
 
 
 
     return (
+        <>
         <NavigationStyles>
             <LogoContainer>
                 <Logo src={LogoImg} />
             </LogoContainer>
             <NavLinks>
-                <Link>Account</Link>
-                <Link>Sign out</Link>
+                <Links><Link to='/'>Home</Link></Links>
+                <Links><Link to='/my-account'>My Account</Link></Links>
+                <Links onClick={() => props.signOut(props)}>Sign out</Links>
             </NavLinks>
         </NavigationStyles>
+            
+
+          <Link to='/'>Student List</Link>
+          <Link to='/create-student-profile'>Create Student Profile</Link>
+          <Link to='/single-child-view'>Single Child View</Link>
+          <Link to='/single-child-edit'>Single Child Edit</Link>
+        
+        </>
     )
 }
 
-export default Navigation;
+
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.isLoading,
+        isLoggedIn: state.isLoggedIn,
+        email: state.email
+    }
+}
+export default connect(
+    mapStateToProps,
+    {signOut, setEmailToState}
+)(Navigation);

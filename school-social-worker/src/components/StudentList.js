@@ -24,7 +24,11 @@ const [students, setStudents] = useState([{}]);
             <h1>Student List: </h1>
             {
             students.map( student => (
+
                 <StudentCard key={student.id} child={student}/>
+
+
+
             ))
             }
         </div>
