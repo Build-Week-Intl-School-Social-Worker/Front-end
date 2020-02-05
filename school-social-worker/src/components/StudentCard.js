@@ -19,7 +19,6 @@ export const StudentCard = props => {
             <p>Card Expiration Date: 
                 <Moment format="YYYY-MM-DD">
                 {props.child.expire_date}
-                2020-03-20T05:00:00.000Z
                 </Moment>
             </p>
             <p>Birth Certificate: {props.child.birth_cert}</p>
