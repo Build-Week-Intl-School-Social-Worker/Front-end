@@ -52,6 +52,11 @@ export const initialState = {
           isLoading: false,
           isLoggedIn: true
         };
+        case "LOGIN_FAILED":
+          return {
+            ...state,
+            isLoading: false
+          };
       // NEW CASE HERE
       case "TOGGLE_EDITING":
         return {

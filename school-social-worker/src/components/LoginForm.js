@@ -7,8 +7,9 @@ import { useHistory } from 'react-router-dom';
 import {connect } from 'react-redux';
 import { logInAction } from '../actions';
 import { Link } from 'react-router-dom';
+import { ScaleLoader } from "react-spinners";
 
-export const LoginForm = ({props, values, errors, touched, status}) => {
+export const LoginForm = ({values, errors, touched, status, ...props}) => {
     const [ credentials, setCredentials ] = useState({
         email: '',
         password: ''
@@ -32,7 +33,14 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
                     {touched.password && errors.password && (<RedAlert className="errors">{errors.password}</RedAlert>)}
                 </label>
 
-                <button type="submit">Login</button>
+                
+                {props.isLoading ? <ScaleLoader
+                size={150}
+                //size={"150px"} this also works
+                color={"#123abc"}
+                loading={props.isLoading}
+                /> : <button type="submit">Login</button>}
+                
 
             </Form>
         <Link to="/register">Register</Link>

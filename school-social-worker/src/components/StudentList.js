@@ -23,11 +23,12 @@ const [students, setStudents] = useState([{}]);
     return (
         <div>
             <h1>Student List: </h1>
-            {/* {
+            {
             students.map( student => (
-                <StudentCard child={student}/>
+                // <StudentCard child={student}/>
+                <div>{student.name}</div>
             ))
-            } */}
+            }
         </div>
     )
 }

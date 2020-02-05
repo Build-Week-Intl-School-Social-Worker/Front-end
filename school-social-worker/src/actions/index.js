@@ -21,6 +21,7 @@ export const createUser = (apiCall, userInputs, props) => {
             props.history.push('/login')
         })
         .catch( err => {
+            dispatch ({ type: "LOGIN_FAILED"})
             console.log(err)
         })
     }
@@ -38,6 +39,7 @@ export const logInAction = (apiCall, userInputs, props) => {
             props.history.push('/')
         })
         .catch( err => {
+            dispatch({ type: "LOGIN_FAILED"})
             console.log(err)
         })
     }
