@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { signOut, setUserDataToState } from '../actions';
 
 
+
 const Navigation = (props) => {
 
 const NavigationStyles = styled.div`
@@ -98,7 +99,8 @@ const mapStateToProps = state => {
     return {
         isLoading: state.isLoading,
         isLoggedIn: state.isLoggedIn,
-        email: state.email
+        email: state.email,
+        stateIsLoading: state.isLoading
     }
 }
 export default connect(

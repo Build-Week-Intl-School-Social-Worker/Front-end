@@ -39,7 +39,18 @@ export const logInAction = (apiCall, userInputs, props) => {
             dispatch({ type: "LOGIN_SUCCESS", payload: userInputs})
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('id', res.data.user.id)
+            dispatch({ type: "DATA_START_LOADING"})
+        console.log('set user data to state action')
+        axiosWithAuth()
+        .get(`https://school-social-worker.herokuapp.com/api/users/${localStorage.getItem('id')}`)
+        .then(res => {
+            console.log(res.data)
+            dispatch({ type: "SET_USER_DATA", payload: res.data})
             props.history.push('/')
+        })
+        .catch(err => {
+            console.log('error on setUserDataToState running on Navigation.js: ',err)
+        })
         })
         .catch( err => {
             dispatch({ type: "LOGIN_FAILED"})
@@ -74,6 +85,7 @@ export const loadUserData = (props) => {
 
 export const setUserDataToState = props => {
     return dispatch => {
+        dispatch({ type: "DATA_START_LOADING"})
         console.log('set user data to state action')
         axiosWithAuth()
         .get(`https://school-social-worker.herokuapp.com/api/users/${localStorage.getItem('id')}`)

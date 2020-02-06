@@ -43,19 +43,19 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const initialState = {
-    id: 21,
-role_id: 1,
-name: "shawn initial state",
-email: "shawn@test.com",
-phone: "1231231234",
-password: "$2a$12$FxDqJN9GMfulDUUmhEARbe3OOiSbamZSRnMoZhuCYXBMG9BqCxw5a",
-org_name: "cashmere"
-}
+// const initialState = {
+//     id: 21,
+// role_id: 1,
+// name: "shawn initial state",
+// email: "shawn@test.com",
+// phone: "1231231234",
+// password: "$2a$12$FxDqJN9GMfulDUUmhEARbe3OOiSbamZSRnMoZhuCYXBMG9BqCxw5a",
+// org_name: "cashmere"
+// }
 
 const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
-    const [ currentUser, setCurrentUser ] = useState(initialState);
+    const [ currentUser, setCurrentUser ] = useState({});
     const [ editing, setEditing ] = useState(false);
     const [ org, setOrg ] = useState('cashiemashie');
 
@@ -88,25 +88,37 @@ const MyAccount =  (props) => {
 
     const classes = useStyles();
 
-            useEffect(()=>{
-                   setLoading(true)
-               axiosWithAuth()
-               .get('https://school-social-worker.herokuapp.com/api/users')
-               .then( res =>  {
-                   console.log(res)
-                   console.log(res.data.find(item => item.email === props.email))
-                   // let newData = await res.data.find(user => user.email === props.email)
-                   // console.log(newData)
-                    let newData = res.data.find(item => item.email === props.email)
-                   setCurrentUser(newData)
-                   //  setUserList(res.data)
-                   setLoading(false)
-               })
-               .catch(err => {
-                   setLoading(false)
-                   console.log(err)
-               })
-           },[])
+    useEffect(() => {
+        setCurrentUser({
+            id: props.id,
+            role_id: props.role_id,
+            name: props.name,
+            email: props.email,
+            phone: props.phone,
+            org_name: props.org_name
+        })
+    },[props.stateIsLoading])
+
+
+        //     useEffect(()=>{
+        //            setLoading(true)
+        //        axiosWithAuth()
+        //        .get('https://school-social-worker.herokuapp.com/api/users')
+        //        .then( res =>  {
+        //            console.log(res)
+        //            console.log(res.data.find(item => item.email === props.email))
+        //            // let newData = await res.data.find(user => user.email === props.email)
+        //            // console.log(newData)
+        //             let newData = res.data.find(item => item.email === props.email)
+        //            setCurrentUser(newData)
+        //            //  setUserList(res.data)
+        //            setLoading(false)
+        //        })
+        //        .catch(err => {
+        //            setLoading(false)
+        //            console.log(err)
+        //        })
+        //    },[])
     
 
 
@@ -161,7 +173,12 @@ const MyAccount =  (props) => {
 const mapStateToProps = state => {
     return {
         id: state.id,
-        email: state.email
+        role_id: state.role_id,
+        email: state.email,
+        name: state.name,
+        org_name: state.org_name,
+        phone: state.phone,
+        stateIsLoading: state.isLoading
     }
 }
 

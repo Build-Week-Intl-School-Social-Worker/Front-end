@@ -3,7 +3,7 @@ export const initialState = {
     isLoggedIn: false,
     id: null,
     role_id: null,
-    email: '',
+    email: null,
     name: '',
     org_name: '',
     phone: null
@@ -58,8 +58,7 @@ export const initialState = {
         };
       case "SIGN_OUT":
         return {
-          ...state,
-          editing: !state.editing
+          initialState
         };
       default:
         return state;
