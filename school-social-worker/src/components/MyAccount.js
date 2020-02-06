@@ -6,6 +6,32 @@ import { ScaleLoader } from "react-spinners";
 import styled from 'styled-components';
 import profilePic from '../assets/profilepic.jpeg';
 
+import EditIcon from '@material-ui/icons/Edit';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        '& > *': {
+          margin: theme.spacing(1),
+        },
+      },
+      small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+      },
+      large: {
+        // width: theme.spacing(7),
+        // height: theme.spacing(7),
+        width: 200,
+        height: 200
+      },
+  }));
+
+
 
 const initialState = {
     id: 21,
@@ -20,6 +46,17 @@ org_name: "cashmere"
 const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ currentUser, setCurrentUser ] = useState(initialState);
+
+    const onChangeHandler = e => {
+        e.preventDefault()
+
+        setCurrentUser({
+            ...currentUser,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const classes = useStyles();
 
 
 
@@ -82,6 +119,13 @@ const MyAccount =  (props) => {
             justify-content: space-between;
             padding: 15px;
           `;
+          const EditIconLine = styled.div`
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            padding: 15px;
+          `;
+
           
           
           return (
@@ -99,7 +143,7 @@ const MyAccount =  (props) => {
 
             <LeftSide >
                 <h1>My Account</h1>
-                <ProfilePic src={profilePic} />
+                <Avatar alt="Remy Sharp" src={profilePic} className={classes.large} />
                 <Line><h4>Email: </h4><h3>{currentUser.email}</h3></Line>
                 
             </LeftSide>
@@ -110,10 +154,11 @@ const MyAccount =  (props) => {
                     <Line><h4>Phone: </h4><h3>{currentUser.phone}</h3></Line>
                     <Line><h4>Organization: </h4><h3>{currentUser.org_name}</h3></Line>
 
-                    
-                    
-                
-                <button onClick={props.loadUserData}> click it</button>
+                <EditIconLine>
+                    <Fab color="secondary" aria-label="edit">
+                        <EditIcon className={classes.editIconStyle}/>
+                    </Fab>
+                </EditIconLine>
                 
                 </RightSide>
                 
