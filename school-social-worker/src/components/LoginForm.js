@@ -4,8 +4,12 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { RedAlert } from './ErrorStyles';
 import { useHistory } from 'react-router-dom';
+import {connect } from 'react-redux';
+import { logInAction } from '../actions';
+import { Link } from 'react-router-dom';
+import { ScaleLoader } from "react-spinners";
 
-export const LoginForm = ({props, values, errors, touched, status}) => {
+export const LoginForm = ({values, errors, touched, status, ...props}) => {
     const [ credentials, setCredentials ] = useState({
         email: '',
         password: ''
@@ -15,7 +19,7 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
 
 
     return (   
-        
+        <>
             <Form>
                 <label htmlFor='email'>
                     Username: 
@@ -29,11 +33,18 @@ export const LoginForm = ({props, values, errors, touched, status}) => {
                     {touched.password && errors.password && (<RedAlert className="errors">{errors.password}</RedAlert>)}
                 </label>
 
-                <button type="submit">Login</button>
+                
+                {props.isLoading ? <ScaleLoader
+                size={150}
+                //size={"150px"} this also works
+                color={"#123abc"}
+                loading={props.isLoading}
+                /> : <button type="submit">Login</button>}
+                
 
             </Form>
-        
-        
+        <Link to="/register">Register</Link>
+        </>
     );
 }
 
@@ -51,17 +62,29 @@ const LoginSubmit = withFormik ({
     }),
 
     handleSubmit( values, { props, setCredentials, resetForm}) {
-        axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
-        .then ( response => {
-            console.log('Success', response);
+        props.logInAction('https://school-social-worker.herokuapp.com/auth/login', values, props);
+        // axios.post('https://school-social-worker.herokuapp.com/auth/login', values)
+        // .then ( response => {
+            // console.log('Success', response, props);
             // setCredentials(response.data);
             // resetForm();
-            localStorage.setItem('token', response.data.token)
-            props.history.push('/')
-        })
-        .catch ( err => console.log('Error on LoginForm: ', err));
+            // localStorage.setItem('token', response.data.token)
+            // props.history.push('/')
+        // })
+        // .catch ( err => console.log('Error on LoginForm: ', err));
     }
 
 })(LoginForm)
 
-export default LoginSubmit;
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.isLoading,
+        isLoggedIn: state.isLoggedIn,
+        role_id: state.role_id
+    }
+}
+export default connect(
+    mapStateToProps,
+    {logInAction}
+)(LoginSubmit);
