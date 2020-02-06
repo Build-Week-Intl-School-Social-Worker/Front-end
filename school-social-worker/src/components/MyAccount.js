@@ -10,11 +10,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+
+import { PageContainer,
+    LeftSide,
+    RightSide,
+    ProfilePic,
+    Line,
+    EditIconLine} from './myAccountStyles';
+
 
 
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+        flexFlow: 'column',
         '& > *': {
           margin: theme.spacing(1),
         },
@@ -46,85 +56,59 @@ org_name: "cashmere"
 const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ currentUser, setCurrentUser ] = useState(initialState);
+    const [ editing, setEditing ] = useState(false);
+    const [ org, setOrg ] = useState('cashiemashie');
 
     const onChangeHandler = e => {
         e.preventDefault()
-
         setCurrentUser({
             ...currentUser,
             [e.target.name]: e.target.value
         })
     }
 
+    const orgHandler = e => {
+        setOrg(e.target.value)
+    }
+
+    const editToggle = () => {
+        setEditing(!editing)
+    }
+
+    const onSubmitPut = () => {
+        axiosWithAuth()
+        .put('https://school-social-worker.herokuapp.com/api/users', currentUser)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     const classes = useStyles();
 
-
-
-        //     useEffect(()=>{
-        //            setLoading(true)
-        //        axiosWithAuth()
-        //        .get('https://school-social-worker.herokuapp.com/api/users')
-        //        .then( res =>  {
-        //            console.log(res.data.find(item => item.email === props.email))
-        //            // let newData = await res.data.find(user => user.email === props.email)
-        //            // console.log(newData)
-        //             let newData = res.data.find(item => item.email === props.email)
-        //            setCurrentUser(newData)
-        //            //  setUserList(res.data)
-        //            setLoading(false)
-        //        })
-        //        .catch(err => {
-        //            setLoading(false)
-        //            console.log(err)
-        //        })
-        //    },[])
+            useEffect(()=>{
+                   setLoading(true)
+               axiosWithAuth()
+               .get('https://school-social-worker.herokuapp.com/api/users')
+               .then( res =>  {
+                   console.log(res)
+                   console.log(res.data.find(item => item.email === props.email))
+                   // let newData = await res.data.find(user => user.email === props.email)
+                   // console.log(newData)
+                    let newData = res.data.find(item => item.email === props.email)
+                   setCurrentUser(newData)
+                   //  setUserList(res.data)
+                   setLoading(false)
+               })
+               .catch(err => {
+                   setLoading(false)
+                   console.log(err)
+               })
+           },[])
     
-           const PageContainer = styled.div`
-           width: 100%;
-           display:flex;
-           justify-content: space-around;
-           flex-flow: row;
-           `;
 
-           const LeftSide = styled.div`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 50%;
-            background: #52abd8c9;
-            color: white;
-            padding: 0px;
-            margin: 50px;
-            border-radius: 10px;
-            `;
-           const RightSide = styled.div`
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-            background: #52abd8c9;
-            color: white;
-            padding: 0px;
-            margin: 50px;
-            border-radius: 10px;
-            `;
-            
-            const ProfilePic = styled.img`
-            border-radius: 100%;
-            width: 100%;
-            width: 100px;
-            `;
-          const Line = styled.div`
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            padding: 15px;
-          `;
-          const EditIconLine = styled.div`
-            display: flex;
-            width: 100%;
-            justify-content: flex-end;
-            padding: 15px;
-          `;
 
           
           
@@ -144,19 +128,22 @@ const MyAccount =  (props) => {
             <LeftSide >
                 <h1>My Account</h1>
                 <Avatar alt="Remy Sharp" src={profilePic} className={classes.large} />
-                <Line><h4>Email: </h4><h3>{currentUser.email}</h3></Line>
-                
+
             </LeftSide>
             <RightSide >
-                
-                    <Line><h4>Name: </h4><h3>{currentUser.name}</h3></Line>
+            <form className={classes.root} noValidate autoComplete="off">
+                    <Line><h4>Name: </h4><h3>{editing ? <TextField onChange={onChangeHandler} name="name" value={currentUser.name} id="s-basic"  /> : currentUser.name}</h3></Line>
                     <Line><h4>Account type: </h4>{(currentUser.role_id === 1) ? <h3>Admin</h3> : <h3>Social Worker</h3>}</Line>
-                    <Line><h4>Phone: </h4><h3>{currentUser.phone}</h3></Line>
-                    <Line><h4>Organization: </h4><h3>{currentUser.org_name}</h3></Line>
+                    <Line><h4>Phone: </h4><h3>{editing ? <TextField onChange={onChangeHandler} name="phone" value={currentUser.phone} id="d-basic"  /> : currentUser.phone}</h3></Line>
 
+                    <Line><h4>Organization: </h4><h3>{editing ? <TextField type='text' id="org_name" name="org_name" onChange={onChangeHandler} value={currentUser.org_name}   /> : currentUser.org_name}</h3></Line>
+
+
+                    
+                </form>
                 <EditIconLine>
-                    <Fab color="secondary" aria-label="edit">
-                        <EditIcon className={classes.editIconStyle}/>
+                    <Fab onClick={editToggle} color="secondary" aria-label="edit">
+                        <EditIcon  className={classes.editIconStyle}/>
                     </Fab>
                 </EditIconLine>
                 
@@ -164,6 +151,7 @@ const MyAccount =  (props) => {
                 
         </PageContainer>
                 }
+                <TextField type='text' id="org_name" name="org_name" onChange={orgHandler} value={org}   />
  </>
     )
 }

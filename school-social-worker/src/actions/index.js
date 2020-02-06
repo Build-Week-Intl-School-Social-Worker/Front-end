@@ -35,10 +35,10 @@ export const logInAction = (apiCall, userInputs, props) => {
         .post(apiCall, userInputs)
         .then(res => {
             console.log(res)
-            console.log(userInputs.email)
+            console.log(res.data.id)
             dispatch({ type: "LOGIN_SUCCESS", payload: userInputs})
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('email', userInputs.email)
+            localStorage.setItem('id', res.data.user.id)
             props.history.push('/')
         })
         .catch( err => {
@@ -51,6 +51,7 @@ export const logInAction = (apiCall, userInputs, props) => {
 export const signOut = (props) => {
     return dispatch => {
         localStorage.removeItem('token');
+        localStorage.removeItem('id');
         dispatch({ type: 'SIGN_OUT'});
         props.history.push('/login')
     }
