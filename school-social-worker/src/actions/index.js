@@ -72,9 +72,17 @@ export const loadUserData = (props) => {
     }
 }
 
-export const setEmailToState = props => {
+export const setUserDataToState = props => {
     return dispatch => {
-        console.log('set email to state action')
-        dispatch({ type: "SET_EMAIL", payload: localStorage.getItem('email')})
+        console.log('set user data to state action')
+        axiosWithAuth()
+        .get(`https://school-social-worker.herokuapp.com/api/users/${localStorage.getItem('id')}`)
+        .then(res => {
+            console.log(res.data)
+            dispatch({ type: "SET_USER_DATA", payload: res.data})
+        })
+        .catch(err => {
+            console.log('error on setUserDataToState running on Navigation.js: ',err)
+        })
     }
 }

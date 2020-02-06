@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import LogoImg from '../assets/ghana-make-a-difference.png';
 import { Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signOut, setEmailToState } from '../actions';
+import { signOut, setUserDataToState } from '../actions';
 
 
 const Navigation = (props) => {
@@ -61,7 +61,7 @@ font-family: 'Manjari', sans-serif;
 useEffect(() => {
 
     if(!props.email) {
-      props.setEmailToState();
+      props.setUserDataToState();
     }
       
   
@@ -103,5 +103,5 @@ const mapStateToProps = state => {
 }
 export default connect(
     mapStateToProps,
-    {signOut, setEmailToState}
+    {signOut, setUserDataToState}
 )(Navigation);

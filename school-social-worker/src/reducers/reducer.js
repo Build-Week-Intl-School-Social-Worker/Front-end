@@ -5,7 +5,8 @@ export const initialState = {
     role_id: null,
     email: '',
     name: '',
-    org_name: ''
+    org_name: '',
+    phone: null
   };
   
   export const reducer = (state = initialState, action) => {
@@ -33,12 +34,16 @@ export const initialState = {
           isLoggedIn: true,
           email: action.payload.email
         };
-      case "SET_EMAIL":
+      case "SET_USER_DATA":
         return {
           ...state,
           isLoading: false,
-          isLoggedIn: true,
-          email: action.payload
+          email: action.payload.email,
+          id: action.payload.id,
+          role_id: action.payload.role_id,
+          name: action.payload.name,
+          phone: action.payload.phone,
+          org_name: action.payload.org_name
         };
         case "LOGIN_FAILED":
           return {
