@@ -1,9 +1,9 @@
 import React from "react";
 import Moment from 'react-moment';
-import 'moment-timezone';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 function getModalStyle() {
     const top = 40;
@@ -87,3 +87,4 @@ export const StudentCard = props => {
         </div>
     );
 }
+
