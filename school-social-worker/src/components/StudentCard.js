@@ -124,8 +124,9 @@ const [snack, setSnack] = useState(false);
                 </div>
                 <ButtonBox>
                     <AddEditBox>
-                        
-                        <Icon className="fa fa-plus-circle" style={{ color: green[500], fontSize: 40}} onClick= {() => handleClicked()}/>
+                      <Fab   className={classes.absolute}>
+                          <Icon className="fa fa-plus-circle" style={{ color: green[500], fontSize: 40}} onClick= {() => handleClicked()}/>
+                      </Fab>
                         <Snackbar
         anchorOrigin={{
           vertical: 'bottom',

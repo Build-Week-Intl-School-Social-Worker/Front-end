@@ -58,7 +58,7 @@ const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ currentUser, setCurrentUser ] = useState({});
     const [ editing, setEditing ] = useState(false);
-    const [ org, setOrg ] = useState('cashiemashie');
+
 
     // Snackbar start
         const [open, setOpen] = useState(false);
@@ -89,9 +89,7 @@ const MyAccount =  (props) => {
         })
     }
 
-    const orgHandler = e => {
-        setOrg(e.target.value)
-    }
+
 
     const editToggle = () => {
         setEditing(!editing)
