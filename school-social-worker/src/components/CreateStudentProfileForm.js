@@ -3,6 +3,8 @@ import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
+
 
 import { CreateStudent, FormSection, FormRow, FormCol } from './CreateStudentStyles.js';
 
@@ -11,7 +13,8 @@ import { ScaleLoader } from "react-spinners";
 
 const CreateStudentProfile = ({value, errors, touched, status}) => {
     const [loading, setLoading] = useState(false);
-
+    
+    const history = useHistory();
     const loadingHandler = () => {
         setLoading(true)
     }
@@ -176,15 +179,16 @@ const CreateStudentSubmit = withFormik({
         };
     },
 
-    handleSubmit(values,  { props, resetForm}) {
+    handleSubmit(values, {resetForm,   ...props}) {
         axiosWithAuth()
         .post('https://school-social-worker.herokuapp.com/api/students', values)
         .then( response => {
 
             console.log('Created Student Success: ', response);
+            props.props.history.push('/')
         })
         .catch ( err => {
-
+            
             console.log('Failed to creat student: ', err)
         });
         
