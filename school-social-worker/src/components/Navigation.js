@@ -22,6 +22,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -29,6 +32,10 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   title: {
     display: 'none',
@@ -72,18 +79,26 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sectionDesktop: {
-    display: 'none',
+    display: 'flex',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
   sectionMobile: {
-    display: 'flex',
+    display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
 }));
+
+function HomeIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </SvgIcon>
+    );
+  }
 
 
 
@@ -124,8 +139,16 @@ const Navigation = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          {/* <Badge badgeContent={4} color="secondary"> */}
+            <PersonAddIcon />
+          {/* </Badge> */}
+        </IconButton>
+        <p>Add Student</p>
+      </MenuItem>
+      <Link to='/my-account'><MenuItem onClick={handleMenuClose}>My Account</MenuItem></Link>
+      <MenuItem onClick={() => props.signOut(props)}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -140,33 +163,18 @@ const Navigation = (props) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+
+<MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
+          {/* <Badge badgeContent={4} color="secondary"> */}
+            <PersonAddIcon />
+          {/* </Badge> */}
         </IconButton>
-        <p>Messages</p>
+        <p>Add Student</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <Link to='/my-account'><MenuItem onClick={handleMenuClose}>My Account</MenuItem></Link>
+      <MenuItem onClick={() => props.signOut(props)}>Sign Out</MenuItem>
+
     </Menu>
   );
     //end
@@ -188,7 +196,7 @@ align-items: center;
 
 const LogoContainer = styled.div`
 display: flex;
-padding: 10px 80px;
+padding: 10px 10px;
 
 @media (max-width: 600px) {
     display: none;
@@ -221,6 +229,9 @@ font-family: 'Manjari', sans-serif;
 }
 `;
 
+
+
+
 useEffect(() => {
 
     if(!props.email) {
@@ -234,22 +245,7 @@ useEffect(() => {
 
     return (
         <>
-        <NavigationStyles>
-            <LogoContainer>
-                <Logo src={LogoImg} />
-            </LogoContainer>
-            <NavLinks>
-                <Links><Link to='/'>Home</Link></Links>
-                <Links><Link to='/my-account'>My Account</Link></Links>
-                <Links onClick={() => props.signOut(props)}>Sign out</Links>
-            </NavLinks>
-        </NavigationStyles>
-            
 
-          <Link to='/'>Student List</Link>
-          <Link to='/create-student-profile'>Create Student Profile</Link>
-          <Link to='/single-child-view'>Single Child View</Link>
-          <Link to='/single-child-edit'>Single Child Edit</Link>
         
         {/* start */}
             <div className={classes.grow}>
@@ -260,11 +256,14 @@ useEffect(() => {
                     className={classes.menuButton}
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleMobileMenuOpen}
                 >
                     <MenuIcon />
                 </IconButton>
                 <Typography className={classes.title} variant="h6" noWrap>
-                    Material-UI
+                    <LogoContainer>
+                        <Logo src={LogoImg} />
+                    </LogoContainer>
                 </Typography>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
@@ -281,7 +280,12 @@ useEffect(() => {
                 </div>
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                    <IconButton aria-label="show 4 new mails" color="inherit">
+                    <Link to='/'> 
+                        <IconButton aria-label="show 4 new mails" color="inherit">
+                            <HomeIcon fontSize="large" />
+                        </IconButton>
+                    </Link> 
+                    {/* <IconButton aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="secondary">
                         <MailIcon />
                     </Badge>
@@ -290,7 +294,7 @@ useEffect(() => {
                     <Badge badgeContent={17} color="secondary">
                         <NotificationsIcon />
                     </Badge>
-                    </IconButton>
+                    </IconButton> */}
                     <IconButton
                     edge="end"
                     aria-label="account of current user"
