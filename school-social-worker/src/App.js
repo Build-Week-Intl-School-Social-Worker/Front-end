@@ -9,7 +9,7 @@ import CreateStudentProfile from './components/CreateStudentProfileForm';
 import SingleChildView from './components/SingleChildView';
 import SingleChildEditForm from './components/SingleChildEditForm';
 import MyAccount from './components/MyAccount';
-import MyAccountTwo from './components/MyAccountTwo';
+
 import Navigation from './components/Navigation';
 import { connect } from 'react-redux';
 
