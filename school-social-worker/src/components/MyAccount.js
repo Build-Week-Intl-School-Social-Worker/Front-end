@@ -44,8 +44,7 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(3),
       },
       large: {
-        // width: theme.spacing(7),
-        // height: theme.spacing(7),
+
         width: 200,
         height: 200
       },
@@ -53,15 +52,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-// const initialState = {
-//     id: 21,
-// role_id: 1,
-// name: "shawn initial state",
-// email: "shawn@test.com",
-// phone: "1231231234",
-// password: "$2a$12$FxDqJN9GMfulDUUmhEARbe3OOiSbamZSRnMoZhuCYXBMG9BqCxw5a",
-// org_name: "cashmere"
-// }
+
 
 const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
@@ -70,10 +61,14 @@ const MyAccount =  (props) => {
     const [ org, setOrg ] = useState('cashiemashie');
 
     // Snackbar start
-        const [open, setOpen] = React.useState(false);
+        const [open, setOpen] = useState(false);
+        const [openFail, setOpenFail] = useState(false);
 
-        const handleClick = () => {
+        const handleSnackbarClick = () => {
         setOpen(true);
+        };
+        const handleSnackbarClickFail = () => {
+        setOpenFail(true);
         };
     
         const handleClose = (event, reason) => {
@@ -82,6 +77,7 @@ const MyAccount =  (props) => {
         }
     
         setOpen(false);
+        setOpenFail(false);
         };
     // Snackbar End
 
@@ -105,9 +101,11 @@ const MyAccount =  (props) => {
         axiosWithAuth()
         .put(`https://school-social-worker.herokuapp.com/api/users/${props.id}`, currentUser)
         .then(res => {
+            handleSnackbarClick()
             console.log(res)
         })
         .catch(err => {
+            handleSnackbarClickFail()
             console.log(err)
         })
         setEditing(!editing)
@@ -126,29 +124,20 @@ const MyAccount =  (props) => {
         })
     },[props.stateIsLoading])
 
+    const studentNumber = 1;
+
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`https://school-social-worker.herokuapp.com/api/${props.id}/students`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    },[props.stateIsLoading])
 
 
-
-
-        //     useEffect(()=>{
-        //            setLoading(true)
-        //        axiosWithAuth()
-        //        .get('https://school-social-worker.herokuapp.com/api/users')
-        //        .then( res =>  {
-        //            console.log(res)
-        //            console.log(res.data.find(item => item.email === props.email))
-        //            // let newData = await res.data.find(user => user.email === props.email)
-        //            // console.log(newData)
-        //             let newData = res.data.find(item => item.email === props.email)
-        //            setCurrentUser(newData)
-        //            //  setUserList(res.data)
-        //            setLoading(false)
-        //        })
-        //        .catch(err => {
-        //            setLoading(false)
-        //            console.log(err)
-        //        })
-        //    },[])
     
 
 
@@ -170,7 +159,10 @@ const MyAccount =  (props) => {
             <LeftSide >
                 <h1>My Account</h1>
                 <Avatar alt="Remy Sharp" src={profilePic} className={classes.large} />
+                <h2>Your Students</h2>
+                <div>
 
+                </div>
             </LeftSide>
             <RightSide >
             <form className={classes.root} noValidate autoComplete="off">
@@ -204,18 +196,17 @@ const MyAccount =  (props) => {
                 </RightSide>
                 {/* SNACKBAR STUFF */}
                 <div className={classes.root}>
-                <Button variant="outlined" onClick={handleClick}>
-                    Open success snackbar
-                </Button>
                 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success">
-                    This is a success message!
+                    Acount Details Saved
                     </Alert>
                 </Snackbar>
-                <Alert severity="error">This is an error message!</Alert>
-                <Alert severity="warning">This is a warning message!</Alert>
-                <Alert severity="info">This is an information message!</Alert>
-                <Alert severity="success">This is a success message!</Alert>
+                <Snackbar open={openFail} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="error">
+                    Acount Details Save Failed
+                    </Alert>
+                </Snackbar>
+
                 </div>
         </PageContainer>
                 }
