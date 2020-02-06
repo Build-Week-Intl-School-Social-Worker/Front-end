@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { loadUserData } from '../actions';
 import { ScaleLoader } from "react-spinners";
-import styled from 'styled-components';
 import profilePic from '../assets/profilepic.jpeg';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,6 +12,12 @@ import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
+
+//Snackbar Start
+    import Button from '@material-ui/core/Button';
+    import Snackbar from '@material-ui/core/Snackbar';
+    import MuiAlert from '@material-ui/lab/Alert';
+//Snackbar End
 
 import { PageContainer,
     LeftSide,
@@ -60,6 +65,22 @@ const MyAccount =  (props) => {
     const [ currentUser, setCurrentUser ] = useState({});
     const [ editing, setEditing ] = useState(false);
     const [ org, setOrg ] = useState('cashiemashie');
+
+    // Snackbar start
+        const [open, setOpen] = React.useState(false);
+
+        const handleClick = () => {
+        setOpen(true);
+        };
+    
+        const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+    
+        setOpen(false);
+        };
+    // Snackbar End
 
     const onChangeHandler = e => {
         e.preventDefault()

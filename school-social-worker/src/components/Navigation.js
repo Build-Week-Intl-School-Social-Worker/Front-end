@@ -139,14 +139,16 @@ const Navigation = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+        <Link onClick={handleMenuClose} to='/create-student-profile'>
         <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
+          <IconButton aria-label="show 4 new mails" color="inherit">
           {/* <Badge badgeContent={4} color="secondary"> */}
             <PersonAddIcon />
           {/* </Badge> */}
-        </IconButton>
-        <p>Add Student</p>
-      </MenuItem>
+          </IconButton>
+          <p>Add Student</p>
+        </MenuItem>
+      </Link>
       <Link to='/my-account'><MenuItem onClick={handleMenuClose}>My Account</MenuItem></Link>
       <MenuItem onClick={() => props.signOut(props)}>Sign Out</MenuItem>
     </Menu>
@@ -164,14 +166,16 @@ const Navigation = (props) => {
       onClose={handleMobileMenuClose}
     >
 
-<MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
+      <Link to='/create-student-profile'>
+        <MenuItem>
+          <IconButton aria-label="show 4 new mails" color="inherit">
           {/* <Badge badgeContent={4} color="secondary"> */}
             <PersonAddIcon />
           {/* </Badge> */}
-        </IconButton>
-        <p>Add Student</p>
-      </MenuItem>
+          </IconButton>
+          <p>Add Student</p>
+        </MenuItem>
+      </Link>
       <Link to='/my-account'><MenuItem onClick={handleMenuClose}>My Account</MenuItem></Link>
       <MenuItem onClick={() => props.signOut(props)}>Sign Out</MenuItem>
 
