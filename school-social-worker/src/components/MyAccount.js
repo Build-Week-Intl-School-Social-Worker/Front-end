@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import profilePic from '../assets/profilepic.jpeg';
 
 import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -75,15 +77,16 @@ const MyAccount =  (props) => {
         setEditing(!editing)
     }
 
-    const onSubmitPut = () => {
+    const submitEditHandler = () => {
         axiosWithAuth()
-        .put('https://school-social-worker.herokuapp.com/api/users', currentUser)
+        .put(`https://school-social-worker.herokuapp.com/api/users/${props.id}`, currentUser)
         .then(res => {
             console.log(res)
         })
         .catch(err => {
             console.log(err)
         })
+        setEditing(!editing)
     }
 
     const classes = useStyles();
@@ -98,6 +101,9 @@ const MyAccount =  (props) => {
             org_name: props.org_name
         })
     },[props.stateIsLoading])
+
+
+
 
 
         //     useEffect(()=>{
@@ -154,16 +160,28 @@ const MyAccount =  (props) => {
                     
                 </form>
                 <EditIconLine>
-                    <Fab onClick={editToggle} color="secondary" aria-label="edit">
+                    
+                    {!editing ? <Fab onClick={editToggle} color="secondary" aria-label="edit">
                         <EditIcon  className={classes.editIconStyle}/>
+                    </Fab> : ''}
+                    
+                {editing ? 
+                    <>
+                    <Fab onClick={editToggle}  className={classes.absolute}>
+                        <ClearIcon />
                     </Fab>
+                    <Fab onClick={submitEditHandler} color="primary" className={classes.absolute}>
+                        <AddIcon />
+                    </Fab>
+                    </>
+                     : ''}
                 </EditIconLine>
                 
                 </RightSide>
                 
         </PageContainer>
                 }
-                <TextField type='text' id="org_name" name="org_name" onChange={orgHandler} value={org}   />
+
  </>
     )
 }
