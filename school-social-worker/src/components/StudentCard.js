@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from 'react-moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -7,6 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { green } from '@material-ui/core/colors';
 import Icon from '@material-ui/core/Icon';
+import Fab from '@material-ui/core/Fab';
+import { loadCSS } from 'fg-loadcss';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
+import { ButtonBox, AddEditBox } from './StudentCardStyles';
 
 function getModalStyle() {
     const top = 50;
@@ -28,17 +35,31 @@ const useStyles = makeStyles(theme => ({
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
+
+    root: {
+        '& > span': {
+          margin: theme.spacing(2),
+        },
+      },
   }));
 
 
 export const StudentCard = props => {
     console.log(props.child);
 
+    React.useEffect(() => {
+        loadCSS(
+          'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+          document.querySelector('#font-awesome-css'),
+        );
+      }, []);
 
     const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+
+const [snack, setSnack] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,6 +69,19 @@ export const StudentCard = props => {
     setOpen(false);
   };
 
+  const handleClicked = () => {
+    setSnack(true);
+  };
+
+  const handleClosed = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+
     return (
         
         <div>
@@ -56,7 +90,7 @@ export const StudentCard = props => {
                 <p>Age: {props.child.age}</p>
                 <p>Representative: {props.child.child_rep}</p>
                 <div>
-                <Button variant="contained" onClick={handleOpen}>Expand</Button>
+                <Button variant="contained" onClick={() => handleOpen()}>Expand</Button>
                 </div>
             </div>
 
@@ -88,12 +122,39 @@ export const StudentCard = props => {
                         <p>Rep. Email: {props.child.child_rep_email}</p>
                     </div>
                 </div>
-                <div>
-                    <Icon>add_circle</Icon>
+                <ButtonBox>
+                    <AddEditBox>
+                        
+                        <Icon className="fa fa-plus-circle" style={{ color: green[500], fontSize: 40}} onClick= {() => handleClicked()}/>
+                        <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={snack}
+        autoHideDuration={6000}
+        onClose={handleClosed}
+        message="Success!"
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClosed}>
+              
+            </Button>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClosed}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+
                     <Button variant="contained" color="primary">Edit</Button>
-                    <Button variant="contained" color="secondary">Delete</Button>
-                </div>
+                    </AddEditBox>
+                    <Button variant="contained" color="secondary" onClick= {() => handleClicked()}>Delete</Button>
+
+                </ButtonBox>
             </div>
+
+  
             </Modal>
         </div>
     );
