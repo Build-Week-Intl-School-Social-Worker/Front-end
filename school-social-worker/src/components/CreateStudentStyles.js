@@ -28,6 +28,7 @@ export const FormRow = styled.div `
     justify-content: flex-end;
     align-items: center;
     width: 100%;
+    flex-wrap: no-wrap;
 `
 
 export const FormCol = styled.div `
