@@ -3,7 +3,11 @@ import { withFormik, Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
+
+import { CreateStudent, FormSection, FormRow, FormCol } from './CreateStudentStyles.js';
+
 import { ScaleLoader } from "react-spinners";
+
 
 const CreateStudentProfile = ({value, errors, touched, status}) => {
     const [loading, setLoading] = useState(false);
@@ -30,79 +34,114 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
     return (
         
-        
+        <CreateStudent>
         <Form>
             <h2>CreateStudentProfile Form Component</h2>
-            <label htmlFor='name'>
-                Name:
-                <Field name='name' type='text' placeHolder='Enter Name' />
-            </label>
+            <FormSection>
+                <FormRow>
+                    <label htmlFor='name'>
+                        Name:
+                        <Field name='name' type='text' placeHolder='Enter Name' />
+                    </label>
+                        
+                    <label htmlFor='age'>
+                        Age:
+                        <Field name='age' type='text' placeHolder='Enter Age' />
+                    </label>
 
-            <label htmlFor='age'>
-                Age:
-                <Field name='age' type='text' placeHolder='Enter Age' />
-            </label>
-
-            <label htmlFor='grade'>
-                Grade:
-                <Field name='grade' type='text' placeHolder='Enter Grade' />
-            </label>
+                    <label htmlFor='grade'>
+                        Grade:
+                        <Field name='grade' type='text' placeHolder='Enter Grade' />
+                    </label>
+                </FormRow>
 
 
-            {/* <label htmlFor='image'>
-                Name:
-                <Field name='image' type='text' placeHolder='Enter Image' />
-            </label> */}
+                {/* <label htmlFor='image'>
+                    Name:
+                    <Field name='image' type='text' placeHolder='Enter Image' />
+                </label> */}
+                <FormSection>
+                    
+                    <label htmlFor='bio'>
+                        Bio:
+                        <Field name='bio' type='text' placeHolder='Enter Bio' />
+                    </label>
+                    
+                    
+                    <label htmlFor='status'>
+                        Status:
+                        <Field name='status' type='text' placeHolder='Enter Status' />
+                    </label>
+                    
+                </FormSection>
+            </FormSection>
 
-            <label htmlFor='bio'>
-                Bio:
-                <Field name='bio' type='text' placeHolder='Enter Bio' />
-            </label>
+            <FormSection>
+                <FormRow>
+                    <FormCol>
+                        <FormRow>
+                        <label htmlFor='insurance_card'>
+                            Insurance Card:
+                            <Field as='select' name='insurance_card' >
+                                <option value={false}>No</option>
+                                <option value={true}>Yes</option> 
+                            </Field>
+                        </label>
+                        </FormRow>
+                        
+                        <FormRow>
+                            <label htmlFor='birth_cert'>
+                            Birth Certificate:
+                            <Field as='select' name='birth_cert'>
+                                <option value={false}>No</option>
+                                <option value={true}>Yes</option>
+                            </Field>    
+                            </label>
+                        </FormRow>
+                    </FormCol>
 
-            <label htmlFor='status'>
-                Status:
-                <Field name='status' type='text' placeHolder='Enter Status' />
-            </label>
+                    <FormCol>
+                        <FormRow>
+                    <label htmlFor='expire_date'>
+                        Expiration Date:
+                        <Field name='expire_date' type='text' placeHolder='Enter Expiration Date' />
+                    </label>
+                    </FormRow>
 
-            <label htmlFor='insurance_card'>
-                Insurance Card:
-                <Field as='select' name='insurance_card' >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option> 
-                </Field>
-            </label>
+                        <FormRow>
+                        <label htmlFor='special_needs'>
+                            Special Needs:
+                            <Field name='special_needs' type='text' placeHolder='Enter Special Needs' />
+                        </label>
+                        </FormRow>
+                    </FormCol>
+                </FormRow>
+            </FormSection>
 
-            <label htmlFor='expire_date'>
-                Expiration Date:
-                <Field name='expire_date' type='text' placeHolder='Enter Expiration Date' />
-            </label>
-
-            <label htmlFor='birth_cert'>
-                Birth Certificate:
-                <Field as='select' name='birth_cert'>
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
-                </Field>    
-            </label>
-
-            <label htmlFor='special_needs'>
-                Special Needs:
-                <Field name='special_needs' type='text' placeHolder='Enter Special Needs' />
-            </label>
-
-            <label htmlFor='child_rep'>
-                Child's Representative:
-                <Field name='child_rep' type='text' placeHolder='Enter Representative' />
-            </label>
-
-            <label htmlFor='child_rep_phone'>
-                Representative Phone:
-                <Field name='child_rep_phone' type='text' placeHolder='Enter Rep Phone' />
-            </label>
-            <label htmlFor='child_rep_email'>
-                Representative Email:
-                <Field name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
-            </label>
+            <FormSection>
+                <FormCol>
+                    <FormRow>
+                        <label htmlFor='child_rep'>
+                            Child's Representative:
+                            <Field name='child_rep' type='text' placeHolder='Enter Representative' />
+                        </label>                    
+                    </FormRow>
+                
+                    <FormRow>
+                        <label htmlFor='child_rep_phone'>
+                            Representative Phone:
+                            <Field name='child_rep_phone' type='text' placeHolder='Enter Rep Phone' />
+                        </label>
+                    </FormRow>
+           
+                    <FormRow>
+                        <label htmlFor='child_rep_email'>
+                            Representative Email:
+                            <Field name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
+                        </label>
+                    </FormRow>
+                </FormCol>
+            </FormSection>
 
             <button onClick={loadingHandler} type="submit">Create</button>
             <ScaleLoader
@@ -114,6 +153,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
             />
 
         </Form>
+        </CreateStudent>
     )
 }
 

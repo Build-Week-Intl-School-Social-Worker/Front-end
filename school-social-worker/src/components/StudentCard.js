@@ -1,13 +1,14 @@
 import React from "react";
 import Moment from 'react-moment';
-import 'moment-timezone';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 function getModalStyle() {
-    const top = 40;
-    const left = 40;
+    const top = 50;
+    const left = 50;
   
     return {
       top: `${top}%`,
@@ -48,10 +49,13 @@ export const StudentCard = props => {
     return (
         
         <div>
-            <div onClick={handleOpen}>
+            <div>
                 <h3>Name: {props.child.name}</h3>
                 <p>Age: {props.child.age}</p>
                 <p>Representative: {props.child.child_rep}</p>
+                <div>
+                <Button variant="contained" onClick={handleOpen}>Expand</Button>
+                </div>
             </div>
 
             <Modal
@@ -82,8 +86,13 @@ export const StudentCard = props => {
                         <p>Rep. Email: {props.child.child_rep_email}</p>
                     </div>
                 </div>
+                <div>
+                    <Button variant="contained" color="primary">Edit</Button>
+                    <Button variant="contained" color="secondary">Delete</Button>
+                </div>
             </div>
             </Modal>
         </div>
     );
 }
+
