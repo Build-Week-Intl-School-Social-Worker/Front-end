@@ -5,6 +5,8 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { green } from '@material-ui/core/colors';
+import Icon from '@material-ui/core/Icon';
 
 function getModalStyle() {
     const top = 50;
@@ -87,6 +89,7 @@ export const StudentCard = props => {
                     </div>
                 </div>
                 <div>
+                    <Icon>add_circle</Icon>
                     <Button variant="contained" color="primary">Edit</Button>
                     <Button variant="contained" color="secondary">Delete</Button>
                 </div>
