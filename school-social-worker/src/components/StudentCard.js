@@ -13,7 +13,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ButtonBox, AddEditBox } from './StudentCardStyles';
+import { ButtonBox, AddEditBox, CardBox } from './StudentCardStyles';
 
 function getModalStyle() {
     const top = 50;
@@ -85,14 +85,16 @@ const [snack, setSnack] = useState(false);
     return (
         
         <div>
-            <div>
-                <h3>Name: {props.child.name}</h3>
-                <p>Age: {props.child.age}</p>
-                <p>Representative: {props.child.child_rep}</p>
+            <CardBox>
+                <h3>Name: </h3>
+                <p>{props.child.name} <br/>
+                Age: {props.child.age}</p>
+                <p>Representative: <br/>
+                {props.child.child_rep}</p>
                 <div>
                 <Button variant="contained" onClick={() => handleOpen()}>Expand</Button>
                 </div>
-            </div>
+            </CardBox>
 
             <Modal
         aria-labelledby="simple-modal-title"

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'; //HOC
 import { fetchStudents } from '../actions';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import  {StudentCard}  from './StudentCard';
+import { StudentBox } from './StudentListStyles';
 
 const StudentList = props => {
 const [students, setStudents] = useState([{}]);
@@ -21,16 +22,17 @@ const [students, setStudents] = useState([{}]);
 
     return (
         <div>
-            <h1>Student List: </h1>
+        <h1>Student List: </h1>
+        <StudentBox >
+            
             {
             students.map( student => (
 
                 <StudentCard key={student.id} child={student}/>
 
-
-
             ))
             }
+        </StudentBox >
         </div>
     )
 }

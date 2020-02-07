@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
-
+import { RedAlert } from './ErrorStyles';
 
 import { CreateStudent, FormSection, FormRow, FormCol } from './CreateStudentStyles.js';
 
@@ -29,7 +29,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
         insurance_card: false,
         expire_date: '',
         birth_cert: false,
-        special_needs: null,
+        special_needs: '',
         child_rep: '',
         child_rep_phone: '',
         child_rep_email: ''
@@ -45,16 +45,19 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     <label htmlFor='name'>
                         Name:
                         <Field name='name' type='text' placeHolder='Enter Name' />
+                        {touched.name && errors.name && (<RedAlert className="errors">{errors.name}</RedAlert>)}
                     </label>
                         
                     <label htmlFor='age'>
                         Age:
                         <Field name='age' type='text' placeHolder='Enter Age' />
+                        {touched.age && errors.age && (<RedAlert className="errors">{errors.age}</RedAlert>)}
                     </label>
 
                     <label htmlFor='grade'>
                         Grade:
                         <Field name='grade' type='text' placeHolder='Enter Grade' />
+                        {touched.grade && errors.grade && (<RedAlert className="errors">{errors.grade}</RedAlert>)}
                     </label>
                 </FormRow>
 
@@ -68,12 +71,14 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     <label htmlFor='bio'>
                         Bio:
                         <Field name='bio' type='text' placeHolder='Enter Bio' />
+                        {touched.bio && errors.bio && (<RedAlert className="errors">{errors.bio}</RedAlert>)}
                     </label>
                     
                     
                     <label htmlFor='status'>
                         Status:
                         <Field name='status' type='text' placeHolder='Enter Status' />
+                        {touched.status && errors.status && (<RedAlert className="errors">{errors.status}</RedAlert>)}
                     </label>
                     
                 </FormSection>
@@ -89,6 +94,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                                 <option value={false}>No</option>
                                 <option value={true}>Yes</option> 
                             </Field>
+                            {touched.insurance_card && errors.insurance_card && (<RedAlert className="errors">{errors.insurance_card}</RedAlert>)}
                         </label>
                         </FormRow>
                         
@@ -98,7 +104,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                             <Field as='select' name='birth_cert'>
                                 <option value={false}>No</option>
                                 <option value={true}>Yes</option>
-                            </Field>    
+                            </Field>
+                            {touched.birth_cert && errors.birth_cert && (<RedAlert className="errors">{errors.birth_cert}</RedAlert>)}    
                             </label>
                         </FormRow>
                     </FormCol>
@@ -108,6 +115,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     <label htmlFor='expire_date'>
                         Expiration Date:
                         <Field name='expire_date' type='text' placeHolder='Enter Expiration Date' />
+                        {touched.expire_date && errors.expire_date && (<RedAlert className="errors">{errors.expire_date}</RedAlert>)}
                     </label>
                     </FormRow>
 
@@ -115,6 +123,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                         <label htmlFor='special_needs'>
                             Special Needs:
                             <Field name='special_needs' type='text' placeHolder='Enter Special Needs' />
+                            {touched.special_needs && errors.special_needs && (<RedAlert className="errors">{errors.special_needs}</RedAlert>)}
                         </label>
                         </FormRow>
                     </FormCol>
@@ -127,6 +136,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                         <label htmlFor='child_rep'>
                             Child's Representative:
                             <Field name='child_rep' type='text' placeHolder='Enter Representative' />
+                            {touched.child_rep && errors.child_rep && (<RedAlert className="errors">{errors.child_rep}</RedAlert>)}
                         </label>                    
                     </FormRow>
                 
@@ -134,6 +144,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                         <label htmlFor='child_rep_phone'>
                             Representative Phone:
                             <Field name='child_rep_phone' type='text' placeHolder='Enter Rep Phone' />
+                            {touched.child_rep_phone && errors.child_rep_phone && (<RedAlert className="errors">{errors.child_rep_phone}</RedAlert>)}
                         </label>
                     </FormRow>
            
@@ -141,6 +152,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                         <label htmlFor='child_rep_email'>
                             Representative Email:
                             <Field name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
+                            {touched.child_rep_email && errors.child_rep_email && (<RedAlert className="errors">{errors.child_rep_email}</RedAlert>)}
                         </label>
                     </FormRow>
                 </FormCol>
@@ -172,12 +184,27 @@ const CreateStudentSubmit = withFormik({
             insurance_card: props.insurance_card || false,
             expire_date: props.expire_date || '',
             birth_cert: props.birth_cert || false,
-            special_needs: props.special_needs || null,
+            special_needs: props.special_needs || '',
             child_rep: props.child_rep || '',
             child_rep_phone: props.child_rep_phone || '',
             child_rep_email: props.child_rep_email || ''
         };
     },
+
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("name is required!"),
+        age: Yup.string().required("Age is required!"),
+        grade: Yup.string().required("Grade is required!"),
+        bio: Yup.string().required("Bio is required!"),
+        status: Yup.string().required("Status is required!"),
+        insurance_card: Yup.string().required("Insurance is required!"),
+        expire_date: Yup.string().required("Expire date is required!"),
+        birth_cert: Yup.string().required("Birth Cert is required!"),
+        special_needs: Yup.string().required("Sepcial needs is required!"),
+        child_rep: Yup.string().required("Child rep is required!"),
+        child_rep_phone: Yup.string().required("Rep phone is required!"),
+        child_rep_email: Yup.string().required("Rep email is required!")
+    }),
 
     handleSubmit(values, {resetForm,   ...props}) {
         axiosWithAuth()
