@@ -146,7 +146,7 @@ const Navigation = (props) => {
             <PersonAddIcon />
           {/* </Badge> */}
           </IconButton>
-          <p>Add Student</p>
+          <p>Create Student</p>
         </MenuItem>
       </Link>
       <Link to='/my-account'><MenuItem onClick={handleMenuClose}>My Account</MenuItem></Link>

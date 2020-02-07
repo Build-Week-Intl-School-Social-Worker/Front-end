@@ -13,7 +13,17 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
-  import {useHistory } from 'react-router-dom'
+import {useHistory } from 'react-router-dom'
+
+// for material ui card
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 
 import { ButtonBox, AddEditBox, CardBox } from './StudentCardStyles';
@@ -41,6 +51,9 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
+      width: 345,
+      padding: 25,
+      margin: 10,
         '& > span': {
           margin: theme.spacing(2),
         },
@@ -78,6 +91,7 @@ export const StudentCard = props => {
 
   const handleClose = () => {
     setOpen(false);
+    setEditing(false)
   };
 
   const handleClicked = () => {
@@ -108,6 +122,18 @@ export const StudentCard = props => {
     .delete(`https://school-social-worker.herokuapp.com/api/students/${id}`)
     .then(res => {
       console.log(res)
+      
+
+      axiosWithAuth()
+            .get('https://school-social-worker.herokuapp.com/api/students')
+            .then(response => {
+                props.setStudents(response.data);
+                props.setFiltered(response.data)
+                editToggle();
+            })
+            .catch(err => {
+                console.log('StudentsListError: ', err)
+            })
     })
     .catch(err => {
       console.log(err)
@@ -159,11 +185,28 @@ const addStudentToMyList = () => {
         })
 }
 
+const testAddVisit = {
+  user_id: myId,
+  student_id: props.student_id,
+  notes: 'this is a test note'
+}
+
+const addStudentVisit = () => {
+      axiosWithAuth()
+      .put(`https://school-social-worker.herokuapp.com/api/visits`, testAddVisit)
+      .then(res => {
+          console.log(res.data)
+      })
+      .catch(err => {
+          console.log(err)
+      })
+}
+
 
     return (
         
         <div>
-            <CardBox>
+            {/* <CardBox>
                 <h3>Name: </h3>
                 <p>{props.child.name} <br/>
                 Age: {props.child.age}</p>
@@ -172,7 +215,7 @@ const addStudentToMyList = () => {
                 <div>
                 <Button variant="contained" onClick={() => handleOpen()}>Expand</Button>
                 </div>
-            </CardBox>
+            </CardBox> */}
 
             <Modal
         aria-labelledby="simple-modal-title"
@@ -234,16 +277,46 @@ const addStudentToMyList = () => {
         }
       />
 
-                    <Button variant="contained" color="primary" onClick={editToggle} >Edit</Button>
+                   <Button variant="contained" color="primary" onClick={editToggle} >{!editing ? 'edit' : 'cancel'}</Button>
                     </AddEditBox>
-                    <Button variant="contained" color="secondary" onClick={() => deleteHandler(props.child.id)}>Delete</Button>
-                    <button onClick={addStudentToMyList}>Add to My List</button>
+                    {editing ? <Button variant="contained" color="secondary" onClick={() => deleteHandler(props.child.id)}>Delete</Button> : '' }
+                    {!editing ? <Fab className={classes.absolute}><PlaylistAddCheckIcon onClick={addStudentToMyList}>Add to My List</PlaylistAddCheckIcon></Fab> : '' }
+                    {!editing ? <Fab   className={classes.absolute}><PostAddIcon onClick={addStudentVisit}>add visit</PostAddIcon></Fab> : '' }
 
                 </ButtonBox>
             </div>
 
   
             </Modal>
+
+            {/* START COMPONENT UI CARD */}
+            <Card onClick={() => handleOpen()} className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                  {props.child.name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                  Grade: {props.child.grade}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              {/* <CardActions>
+                <Button size="small" color="primary">
+                  Share
+                </Button>
+                <Button size="small" color="primary">
+                  Learn More
+                </Button>
+              </CardActions> */}
+            </Card>
+            {/* END COMPONENT UI CARD */}
+
         </div>
     );
 }

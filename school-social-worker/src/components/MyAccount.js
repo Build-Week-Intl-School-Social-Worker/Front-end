@@ -143,9 +143,28 @@ const MyAccount =  (props) => {
         })
     },[props.stateIsLoading])
 
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`https://school-social-worker.herokuapp.com/api/visits`)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    },[])
 
 
-
+    const removeStudentHandler = (studentId) => {
+        axiosWithAuth()
+        .delete(`https://school-social-worker.herokuapp.com/api/users/${props.id}/students/${studentId}`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
 
 
@@ -172,7 +191,7 @@ const MyAccount =  (props) => {
                 <Avatar alt="Remy Sharp" src={profilePic} className={classes.large} />
                 <h2>Your Students</h2>
                 <div>
-                    {myStudentList.map(item => <h3>{item.student_name}</h3>)}
+                    {myStudentList.map(item => <div><h3>{item.student_name}</h3><button onClick={() => removeStudentHandler(item.student_name)}>remove Student</button></div>)}
                 </div>
             </LeftSide>
             <RightSide >

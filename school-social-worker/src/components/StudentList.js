@@ -4,7 +4,7 @@ import { fetchStudents } from '../actions';
 
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import  {StudentCard}  from './StudentCard';
-import { StudentBox } from './StudentListStyles';
+import { StudentBox, StudentCardContainer, Title, FilterStudentContainer } from './StudentListStyles';
 
 
 const StudentList = props => {
@@ -38,28 +38,29 @@ const StudentList = props => {
 
 
     return (
-        <div>
+        <StudentCardContainer>
             <StudentBox>
-
-            <label > Filter By Grade: 
-                <select onChange={filterHandler} >
-                    <option value='0'>All</option>
-                    <option>k</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12</option>
-                </select>
-            </label>
-            <h1>Student List: </h1>
+            <FilterStudentContainer>
+                <label > Filter By Grade: 
+                    <select onChange={filterHandler} >
+                        <option value='0'>All</option>
+                        <option>k</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                </label>
+            </FilterStudentContainer>
+            <Title>Student List: </Title>
 
             {
                 filtered.map(student => (
@@ -74,7 +75,7 @@ const StudentList = props => {
 
             }
         </StudentBox >
-        </div>
+        </StudentCardContainer>
     )
 }
 
