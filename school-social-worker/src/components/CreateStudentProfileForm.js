@@ -54,7 +54,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
         <CreateStudent>
         <Form>
                     
-            <h2>CreateStudentProfile Form Component</h2>
+            <h2> Create Student Profile </h2>
             <FormSection>
                 <FormRow>
                     <label htmlFor='name'>
