@@ -15,18 +15,18 @@ export const CreateStudent = styled.div `
 
 export const FormSection = styled.div  `
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: space-between;
     flex-wrap: wrap;
     margin: 4% 0;
-    width: 100%;
+
 `
 
 export const FormRow = styled.div `
     display: flex;
     margin: 2% 0;
-    justify-content: flex-end;
-    align-items: center;
+
+    justify-content: space-around;
     width: 100%;
     flex-wrap: no-wrap;
 `
