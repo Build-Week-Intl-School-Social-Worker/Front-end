@@ -13,6 +13,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
+  import {useHistory } from 'react-router-dom'
+
 
 import { ButtonBox, AddEditBox, CardBox } from './StudentCardStyles';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
@@ -48,6 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 export const StudentCard = props => {
 
+  const history = useHistory();
 
     React.useEffect(() => {
         loadCSS(
@@ -137,6 +140,25 @@ export const StudentCard = props => {
     })
 }
 
+const myId = localStorage.getItem('id');
+
+const postObjectHolder = {
+  student_id: props.child.id
+}
+
+
+const addStudentToMyList = () => {
+        axiosWithAuth()
+        .post(`https://school-social-worker.herokuapp.com/api/users/${myId}/students`, postObjectHolder)
+        .then(res => {
+            console.log(res)
+            history.push('/my-account')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
 
     return (
         
@@ -215,6 +237,7 @@ export const StudentCard = props => {
                     <Button variant="contained" color="primary" onClick={editToggle} >Edit</Button>
                     </AddEditBox>
                     <Button variant="contained" color="secondary" onClick={() => deleteHandler(props.child.id)}>Delete</Button>
+                    <button onClick={addStudentToMyList}>Add to My List</button>
 
                 </ButtonBox>
             </div>

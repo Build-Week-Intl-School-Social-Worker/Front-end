@@ -25,8 +25,7 @@ function App(props) {
     <div className="App">
         <PrivateRoute path='/' component={Navigation}/>
       <header className="App-header">
-      
-
+    
         <PrivateRoute exact path='/' component={StudentList} />
         <Route path='/login' component={LoginForm} />
         <Route path='/register' component={RegisterForm} />

@@ -82,7 +82,8 @@ const StudentList = props => {
 const mapStateToProps = state => {
     return {
         title: state.title,
-        studentList: state.studentList
+        studentList: state.studentList,
+        id: state.id
     }
 }
 

@@ -58,6 +58,7 @@ const MyAccount =  (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ currentUser, setCurrentUser ] = useState({});
     const [ editing, setEditing ] = useState(false);
+    const [myStudentList, setMyStudentList] = useState([]);
 
 
     // Snackbar start
@@ -124,16 +125,28 @@ const MyAccount =  (props) => {
 
     const studentNumber = 1;
 
+
+
+
+
+    const addThisStudent = {student_id: 2}
+
     useEffect(() => {
         axiosWithAuth()
-        .get(`https://school-social-worker.herokuapp.com/api/${props.id}/students`)
+        .get(`https://school-social-worker.herokuapp.com/api/users/${props.id}/students`)
         .then(res => {
-            console.log(res)
+            console.log(res.data)
+            setMyStudentList(res.data)
         })
         .catch(err => {
             console.log(err)
         })
     },[props.stateIsLoading])
+
+
+
+
+
 
 
     
@@ -159,7 +172,7 @@ const MyAccount =  (props) => {
                 <Avatar alt="Remy Sharp" src={profilePic} className={classes.large} />
                 <h2>Your Students</h2>
                 <div>
-
+                    {myStudentList.map(item => <h3>{item.student_name}</h3>)}
                 </div>
             </LeftSide>
             <RightSide >
