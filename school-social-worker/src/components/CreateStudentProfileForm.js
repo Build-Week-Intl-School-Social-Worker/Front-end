@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withFormik, Form, Field, Formik } from 'formik';
 // import axios from 'axios';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 
@@ -116,7 +116,6 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     
                     <label htmlFor='bio'>
 
-                        Bio:
                         <TextField label="Bio:" name='bio' type='text' />
                         {touched.bio && errors.bio && (<RedAlert className="errors">{errors.bio}</RedAlert>)}
 
@@ -125,7 +124,6 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     
                     <label htmlFor='status'>
 
-                        Status:
                         <TextField  label="Status:" name='status' type='text' placeHolder='Enter Status' />
                         {touched.status && errors.status && (<RedAlert className="errors">{errors.status}</RedAlert>)}
 
@@ -151,13 +149,13 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
 
                         
-                        <TextField placeholder='Expiration Date:' label="Expiration Date:" name='expire_date' type='text' placeHolder='Enter Expiration Date' />
+                        <TextField  label="Expiration Date:" name='expire_date' type='text'  />
                         </FormRow>
                         
                         <FormRow>
 
                             <InputLabel htmlFor="birth-cert">Birth Certificate: 
-                            <Select placeholder='Birth Certificate:' label="Birth Certificate:" as='select' name='birth_cert' inputProps={{id: 'birth-cert',}}>
+                            <Select  label="Birth Certificate:" as='select' name='birth_cert' inputProps={{id: 'birth-cert',}}>
                                 <MenuItem value={false}>No</MenuItem>
                                 <MenuItem value={true}>Yes</MenuItem>
                             </Select>    
@@ -172,8 +170,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
                         <label htmlFor='special_needs'>
 
-                            Special Needs:
-                            <TextField label="Special Needs:"  name='special_needs' type='text' placeHolder='Enter Special Needs' />
+
+                            <TextField label="Special Needs:"  name='special_needs' type='text' />
                             {touched.special_needs && errors.special_needs && (<RedAlert className="errors">{errors.special_needs}</RedAlert>)}
 
                         </label>
@@ -187,8 +185,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     <FormRow>
                         <label htmlFor='child_rep'>
 
-                            Child's Representative:
-                            <TextField label="Representative:" name='child_rep' type='text' placeHolder='Enter Representative' />
+
+                            <TextField label="Representative:" name='child_rep' type='text' />
                             {touched.child_rep && errors.child_rep && (<RedAlert className="errors">{errors.child_rep}</RedAlert>)}
 
                         </label>                    
@@ -197,8 +195,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
                         <label htmlFor='child_rep_phone'>
 
-                            Representative Phone:
-                            <TextField label="Representative Phone:" name='child_rep_phone' type='text' placeHolder='Enter Rep Phone' />
+                            <TextField label="Representative Phone:" name='child_rep_phone' type='text'  />
                             {touched.child_rep_phone && errors.child_rep_phone && (<RedAlert className="errors">{errors.child_rep_phone}</RedAlert>)}
 
                         </label>
@@ -206,8 +203,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
                         <label htmlFor='child_rep_email'>
 
-                            Representative Email:
-                            <TextField label="Representative Email:" name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
+
+                            <TextField label="Representative Email:" name='child_rep_email' type='text'  />
                             {touched.child_rep_email && errors.child_rep_email && (<RedAlert className="errors">{errors.child_rep_email}</RedAlert>)}
 
                         </label>

@@ -23,9 +23,9 @@ const StudentList = props => {
             })
     }, [])
 
-    useEffect(() => {
 
-    }, [])
+
+
 
     const filterHandler = e => {
         console.log(e.target.value)
@@ -39,6 +39,7 @@ const StudentList = props => {
 
     return (
         <div>
+            <StudentBox>
 
             <label > Filter By Grade: 
                 <select onChange={filterHandler} >
@@ -63,7 +64,7 @@ const StudentList = props => {
             {
                 filtered.map(student => (
 
-                    <StudentCard key={student.id} child={student} />
+                    <StudentCard students={students} setFiltered={setFiltered} setStudents={setStudents} key={student.id} child={student} />
 
 
 
