@@ -8,6 +8,7 @@ import {connect } from 'react-redux';
 import { logInAction } from '../actions';
 import { Link } from 'react-router-dom';
 import { ScaleLoader } from "react-spinners";
+import { LoginBox } from './LoginStyles';
 
 export const LoginForm = ({values, errors, touched, status, ...props}) => {
     const [ credentials, setCredentials ] = useState({
@@ -20,6 +21,7 @@ export const LoginForm = ({values, errors, touched, status, ...props}) => {
 
     return (   
         <>
+            <LoginBox>
             <Form>
                 <label htmlFor='email'>
                     Username: 
@@ -43,6 +45,7 @@ export const LoginForm = ({values, errors, touched, status, ...props}) => {
                 
 
             </Form>
+            </LoginBox>
         <Link to="/register">Register</Link>
         </>
     );

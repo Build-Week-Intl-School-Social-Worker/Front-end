@@ -4,6 +4,9 @@ import { withFormik, Form, Field, Formik } from 'formik';
 // import * as Yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
+
+import { RedAlert } from './ErrorStyles';
+
 // import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,6 +15,7 @@ import { TextField, Select } from 'formik-material-ui';
 
 
 // import { makeStyles } from '@material-ui/core/styles';
+
 
 
 
@@ -43,7 +47,7 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
         insurance_card: false,
         expire_date: '',
         birth_cert: false,
-        special_needs: null,
+        special_needs: '',
         child_rep: '',
         child_rep_phone: '',
         child_rep_email: ''
@@ -60,11 +64,15 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                     <label htmlFor='name'>
                         
                         <TextField id="standard-basic" label="Name" name='name'  type='text' placeHolder='Enter Name'  />
+                        {touched.name && errors.name && (<RedAlert className="errors">{errors.name}</RedAlert>)}
+
                     </label>
                         
                     <label htmlFor='age'>
                         
                         <TextField name='age' type='text' placeHolder='Enter Age' label="Enter Age"  />
+                        {touched.age && errors.age && (<RedAlert className="errors">{errors.age}</RedAlert>)}
+
                     </label>
 
                     <label htmlFor='grade'>
@@ -90,6 +98,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                             <MenuItem value={11}>11</MenuItem> 
                             <MenuItem value={12}>12</MenuItem> 
                         </Select>
+                        {touched.grade && errors.grade && (<RedAlert className="errors">{errors.grade}</RedAlert>)}
+
 
 
 
@@ -105,14 +115,20 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                 <FormSection>
                     
                     <label htmlFor='bio'>
-                        
-                        <TextField placeholder='Bio:' label="Bio:" name='bio' type='text' placeHolder='Enter Bio' />
+
+                        Bio:
+                        <TextField label="Bio:" name='bio' type='text' />
+                        {touched.bio && errors.bio && (<RedAlert className="errors">{errors.bio}</RedAlert>)}
+
                     </label>
                     
                     
                     <label htmlFor='status'>
-                        
-                        <TextField placeholder='Status:' label="Status:" name='status' type='text' placeHolder='Enter Status' />
+
+                        Status:
+                        <TextField  label="Status:" name='status' type='text' placeHolder='Enter Status' />
+                        {touched.status && errors.status && (<RedAlert className="errors">{errors.status}</RedAlert>)}
+
                     </label>
                     
                 </FormSection>
@@ -121,12 +137,16 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
   
                     
                         <FormRow>
+
+
                         <InputLabel htmlFor='insurance_card'>Insurance Card: 
                             
                             <Select inputProps={{id: 'insurance_card',}} label="Insurance Card:" as='select' name='insurance_card' >
                                 <MenuItem value={false}>No</MenuItem>
                                 <MenuItem value={true}>Yes</MenuItem> 
                             </Select>
+                                  {touched.insurance_card && errors.insurance_card && (<RedAlert className="errors">{errors.insurance_card}</RedAlert>)}
+
                             </InputLabel>
 
 
@@ -141,6 +161,8 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
                                 <MenuItem value={false}>No</MenuItem>
                                 <MenuItem value={true}>Yes</MenuItem>
                             </Select>    
+                                  {touched.birth_cert && errors.birth_cert && (<RedAlert className="errors">{errors.birth_cert}</RedAlert>)}    
+
                             </InputLabel>
 
                     
@@ -149,8 +171,11 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
 
                         <label htmlFor='special_needs'>
-                            
-                            <TextField placeholder='Special Needs:' label="Special Needs:" name='special_needs' type='text' placeHolder='Enter Special Needs' />
+
+                            Special Needs:
+                            <TextField label="Special Needs:"  name='special_needs' type='text' placeHolder='Enter Special Needs' />
+                            {touched.special_needs && errors.special_needs && (<RedAlert className="errors">{errors.special_needs}</RedAlert>)}
+
                         </label>
                         </FormRow>
 
@@ -161,21 +186,30 @@ const CreateStudentProfile = ({value, errors, touched, status}) => {
 
                     <FormRow>
                         <label htmlFor='child_rep'>
-                            
-                            <TextField label="Representative:" name='child_rep' type='text'  />
+
+                            Child's Representative:
+                            <TextField label="Representative:" name='child_rep' type='text' placeHolder='Enter Representative' />
+                            {touched.child_rep && errors.child_rep && (<RedAlert className="errors">{errors.child_rep}</RedAlert>)}
+
                         </label>                    
 
                 
 
                         <label htmlFor='child_rep_phone'>
-                            
-                            <TextField  label="Representative Phone:" name='child_rep_phone' type='text' />
+
+                            Representative Phone:
+                            <TextField label="Representative Phone:" name='child_rep_phone' type='text' placeHolder='Enter Rep Phone' />
+                            {touched.child_rep_phone && errors.child_rep_phone && (<RedAlert className="errors">{errors.child_rep_phone}</RedAlert>)}
+
                         </label>
 
 
                         <label htmlFor='child_rep_email'>
-                            
-                            <TextField  label="Representative Email:" name='child_rep_email' type='text' />
+
+                            Representative Email:
+                            <TextField label="Representative Email:" name='child_rep_email' type='text' placeHolder='Enter Rep Email' />
+                            {touched.child_rep_email && errors.child_rep_email && (<RedAlert className="errors">{errors.child_rep_email}</RedAlert>)}
+
                         </label>
                     </FormRow>
 
@@ -207,14 +241,31 @@ const CreateStudentSubmit = withFormik({
             insurance_card: props.insurance_card || false,
             expire_date: props.expire_date || '',
             birth_cert: props.birth_cert || false,
-            special_needs: props.special_needs || null,
+            special_needs: props.special_needs || '',
             child_rep: props.child_rep || '',
             child_rep_phone: props.child_rep_phone || '',
             child_rep_email: props.child_rep_email || ''
         };
     },
 
-    handleSubmit(values,  {resetForm, ...props}) {
+
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("name is required!"),
+        age: Yup.string().required("Age is required!"),
+        grade: Yup.string().required("Grade is required!"),
+        bio: Yup.string().required("Bio is required!"),
+        status: Yup.string().required("Status is required!"),
+        insurance_card: Yup.string().required("Insurance is required!"),
+        expire_date: Yup.string().required("Expire date is required!"),
+        birth_cert: Yup.string().required("Birth Cert is required!"),
+        special_needs: Yup.string().required("Sepcial needs is required!"),
+        child_rep: Yup.string().required("Child rep is required!"),
+        child_rep_phone: Yup.string().required("Rep phone is required!"),
+        child_rep_email: Yup.string().required("Rep email is required!")
+    }),
+
+    handleSubmit(values, {resetForm,   ...props}) {
+
         axiosWithAuth()
         .post('https://school-social-worker.herokuapp.com/api/students', values)
         .then( response => {

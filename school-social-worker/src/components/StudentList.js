@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'; //HOC
 import { fetchStudents } from '../actions';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { StudentCard } from './StudentCard';
+
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import  {StudentCard}  from './StudentCard';
+import { StudentBox } from './StudentListStyles';
+
 
 const StudentList = props => {
     const [students, setStudents] = useState([{}]);
@@ -36,6 +39,7 @@ const StudentList = props => {
 
     return (
         <div>
+
             <label > Filter By Grade: 
                 <select onChange={filterHandler} >
                     <option value='0'>All</option>
@@ -55,6 +59,7 @@ const StudentList = props => {
                 </select>
             </label>
             <h1>Student List: </h1>
+
             {
                 filtered.map(student => (
 
@@ -62,9 +67,12 @@ const StudentList = props => {
 
 
 
+
                 ))
 
+
             }
+        </StudentBox >
         </div>
     )
 }

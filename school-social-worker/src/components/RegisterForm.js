@@ -8,6 +8,8 @@ import { createUser } from '../actions/index';
 import { ScaleLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import { Link } from 'react-router-dom';
+import { RedAlert } from './ErrorStyles';
+import { RegisterBox } from './RegisterFormStyles'
 
 
 const override = css`
@@ -27,45 +29,46 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
 
     return (
         <>
+        <RegisterBox>
        <Form>
            
             <label htmlFor='name'> 
                 Name: 
                 <Field name='name' type='text' placeHolder='Enter Name' />
                 {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
+                    <RedAlert className="errors">{errors.name}</RedAlert>
                 )}
             </label>
 
             <label htmlFor='role_id'> 
                 role_id: 
                 <Field name='role_id' type='text' placeHolder='role_id' />
-                {/* {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
-                )} */}
+                {touched.role_id && errors.role_id && (
+                    <RedAlert className="errors">{errors.role_id}</RedAlert>
+                )}
             </label>
 
             <label htmlFor='phone'> 
                 phone: 
                 <Field name='phone' type='text' placeHolder='phone' />
-                {/* {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
-                )} */}
+                {touched.phone && errors.phone && (
+                    <RedAlert className="errors">{errors.phone}</RedAlert>
+                )}
             </label>
 
             <label htmlFor='org_name'> 
                 org_name: 
                 <Field name='org_name' type='text' placeHolder='org_name' />
-                {/* {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
-                )} */}
+                {touched.org_name && errors.org_name && (
+                    <RedAlert className="errors">{errors.org_name}</RedAlert>
+                )}
             </label>
 
             <label htmlFor='email'>
                 Email: 
                 <Field name='email' type='email' placeHolder='Enter Email' />
                 {touched.email && errors.email && (
-                    <p className="errors">{errors.email}</p>
+                    <RedAlert className="errors">{errors.email}</RedAlert>
                 )}
             </label>
 
@@ -73,7 +76,7 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
                 Password: 
                 <Field name='password' type='password' placeHolder="Enter Password" />
                 {touched.password && errors.password && (
-                    <p className="errors">{errors.password}</p>
+                    <RedAlert className="errors">{errors.password}</RedAlert>
                 )}
             </label>
 
@@ -101,6 +104,7 @@ const RegisterForm = ({ values, errors, touched, status, ...props}) => {
             }
 
        </Form>
+       </RegisterBox>
        <Link to="/login">Login</Link>
        </>
     );
@@ -119,9 +123,12 @@ const RegisterSubmit = withFormik ({
     },
 
     validationSchema: Yup.object().shape({
-        // name: Yup.string().required("Name is required!"),
-        // email: Yup.string().required("Email is required!"),
-        // password: Yup.string().required("Password is required!"),
+        name: Yup.string().required("Name is required!"),
+        role_id: Yup.string().required("Role is required!"),
+        phone: Yup.string().required("Phone is required!"),
+        org_name: Yup.string().required("Org name is required!"),
+        email: Yup.string().required("Email is required!"),
+        password: Yup.string().required("Password is required!"),
         // status: Yup.string().required("Role is required!")
     }),
 
