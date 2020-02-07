@@ -107,8 +107,6 @@ export const StudentCard = props => {
   };
 
   const onChangeHandler = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
 
     setUpdateChild({
       ...updateChild,
@@ -121,7 +119,7 @@ export const StudentCard = props => {
     axiosWithAuth()
     .delete(`https://school-social-worker.herokuapp.com/api/students/${id}`)
     .then(res => {
-      console.log(res)
+      console.log('this should delete')
       
 
       axiosWithAuth()
@@ -196,9 +194,11 @@ const addStudentVisit = () => {
       .put(`https://school-social-worker.herokuapp.com/api/visits`, testAddVisit)
       .then(res => {
           console.log(res.data)
-      })
-      .catch(err => {
+          console.log('this should add a note to the students visit')
+        })
+        .catch(err => {
           console.log(err)
+          console.log('this should add a note to the students visit')
       })
 }
 
@@ -292,11 +292,11 @@ const addStudentVisit = () => {
             {/* START COMPONENT UI CARD */}
             <Card onClick={() => handleOpen()} className={classes.root}>
               <CardActionArea>
-                <CardMedia
+                {/* <CardMedia
                   className={classes.media}
                   image="/static/images/cards/contemplative-reptile.jpg"
                   title="Contemplative Reptile"
-                />
+                /> */}
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                   {props.child.name}
