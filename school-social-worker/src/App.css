@@ -396,3 +396,13 @@ template {
     transform: rotate(360deg);
   }
 }
+
+
+/* TEXT FIELD STYLES */
+.MuiInputBase-input  {
+  color: orange !important;
+}
+
+.MuiFormLabel-root {
+  color: white !important;
+}
